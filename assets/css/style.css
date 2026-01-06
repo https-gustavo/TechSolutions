@@ -777,6 +777,24 @@ img { max-width: 100%; display: block; }
     .store-actions {
         justify-content: center;
     }
+
+    .scroll-down {
+        display: none;
+    }
+
+    /* Ajustes de Alinhamento Mobile */
+    .hero-main-brand {
+        padding-left: 0;
+        border-left: none;
+        text-align: center; /* Garante centralização */
+    }
+
+    /* Força coluna única em grids para evitar overflow */
+    .services-grid, 
+    .portfolio-grid, 
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* =========================================
