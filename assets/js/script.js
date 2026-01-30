@@ -1,391 +1,427 @@
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Menu Mobile
-    const mobileMenuBtn = document.getElementById('mobile-menu');
-    const navMenu = document.getElementById('nav-menu');
-    const navLinks = document.querySelectorAll('.nav-link');
+/**
+ * TechSolutions - Main Script
+ * Handles navigation, theme, animations, and GitHub API integration.
+ * Optimized for performance and readability.
+ */
 
-    function toggleMenu() {
-        navMenu.classList.toggle('open');
-        const icon = mobileMenuBtn.querySelector('i');
+// =========================================
+// CONSTANTS & CONFIG
+// =========================================
+const GITHUB_USER = 'https-gustavo';
+const THEME_STORAGE_KEY = 'theme';
+const SCROLL_THRESHOLD = 50;
+const ANIMATION_THRESHOLD = 0.1;
+
+const LANGUAGE_ICONS = {
+    'javascript': 'devicon-javascript-plain',
+    'typescript': 'devicon-typescript-plain',
+    'python': 'devicon-python-plain',
+    'html': 'devicon-html5-plain',
+    'css': 'devicon-css3-plain',
+    'java': 'devicon-java-plain',
+    'c#': 'devicon-csharp-plain',
+    'php': 'devicon-php-plain',
+    'ruby': 'devicon-ruby-plain',
+    'go': 'devicon-go-original-wordmark',
+    'rust': 'devicon-rust-plain',
+    'c++': 'devicon-cplusplus-plain',
+    'c': 'devicon-c-plain',
+    'swift': 'devicon-swift-plain',
+    'kotlin': 'devicon-kotlin-plain',
+    'dart': 'devicon-dart-plain',
+    'shell': 'devicon-bash-plain',
+    'powershell': 'devicon-powershell-plain',
+    'vue': 'devicon-vuejs-plain',
+    'react': 'devicon-react-original',
+    'angular': 'devicon-angularjs-plain',
+    'svelte': 'devicon-svelte-plain',
+    'docker': 'devicon-docker-plain',
+    'kubernetes': 'devicon-kubernetes-plain'
+};
+
+// =========================================
+// UTILITIES
+// =========================================
+
+/**
+ * Get Devicon class for a language
+ * @param {string} language
+ * @returns {string} CSS class
+ */
+function getLanguageIconClass(language) {
+    if (!language) return 'ph ph-code';
+    return LANGUAGE_ICONS[language.toLowerCase()] || 'ph ph-code';
+}
+
+// =========================================
+// MODULES
+// =========================================
+
+const MobileMenu = {
+    init() {
+        const menuBtn = document.getElementById('mobile-menu');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        if (!menuBtn || !navMenu) return;
+
+        function toggle() {
+            const isOpen = navMenu.classList.toggle('open');
+            const icon = menuBtn.querySelector('i');
+            if (icon) {
+                icon.classList.replace(isOpen ? 'ph-list' : 'ph-x', isOpen ? 'ph-x' : 'ph-list');
+            }
+            menuBtn.setAttribute('aria-expanded', isOpen);
+        }
+
+        menuBtn.addEventListener('click', toggle);
         
-        if (navMenu.classList.contains('open')) {
-            icon.classList.replace('ph-list', 'ph-x');
-        } else {
-            icon.classList.replace('ph-x', 'ph-list');
-        }
-    }
-
-    mobileMenuBtn.addEventListener('click', toggleMenu);
-
-    // Fechar menu ao clicar em um link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (navMenu.classList.contains('open')) {
-                toggleMenu();
+        // Keyboard support
+        menuBtn.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggle();
             }
         });
-    });
 
-    // Fechar menu ao clicar fora
-    document.addEventListener('click', (e) => {
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('open')) {
-            toggleMenu();
-        }
-    });
+        // Close when clicking a link
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (navMenu.classList.contains('open')) toggle();
+            });
+        });
 
-    // Alternar Tema (Dark/Light Mode)
-    const themeToggleBtn = document.getElementById('theme-toggle-btn');
-    const savedTheme = localStorage.getItem('theme');
-
-    // Aplicar tema salvo ou padrão
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-    }
-
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            let newTheme = 'light';
-
-            if (currentTheme === 'dark') {
-                document.documentElement.setAttribute('data-theme', 'light');
-                newTheme = 'light';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                newTheme = 'dark';
+        // Close when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navMenu.classList.contains('open') && 
+                !navMenu.contains(e.target) && 
+                !menuBtn.contains(e.target)) {
+                toggle();
             }
-
-            localStorage.setItem('theme', newTheme);
         });
     }
+};
 
-    // Sombra no Cabeçalho ao Rolar
-    const header = document.getElementById('header');
-    
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            header.style.boxShadow = 'var(--shadow-hover)';
-        } else {
-            header.style.boxShadow = 'var(--shadow)';
+const ThemeManager = {
+    init() {
+        const toggleBtn = document.getElementById('theme-toggle-btn');
+        const savedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+
+        if (savedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
         }
-    });
 
-    // Link Ativo na Navegação ao Rolar
-    const sections = document.querySelectorAll('section[id]');
-    
-    function scrollActive() {
-        const scrollY = window.pageYOffset;
-
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 100;
-            const sectionId = current.getAttribute('id');
-            const sectionsClass = document.querySelector('.nav-menu a[href*=' + sectionId + ']');
-
-            if (sectionsClass) {
-                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                    sectionsClass.classList.add('active');
-                } else {
-                    sectionsClass.classList.remove('active');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                
+                document.documentElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+            });
+            
+            // Keyboard accessibility for toggle
+            toggleBtn.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleBtn.click();
                 }
-            }
-        });
+            });
+        }
     }
+};
 
-    window.addEventListener('scroll', scrollActive);
+const ScrollEffects = {
+    init() {
+        this.headerShadow();
+        this.activeLink();
+        this.progressBar();
+        this.revealAnimations();
+    },
 
-    // Animações de Scroll (Scroll Reveal)
-    const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -50px 0px"
-    };
+    headerShadow() {
+        const header = document.getElementById('header');
+        if (!header) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
-            }
+        window.addEventListener('scroll', () => {
+            header.style.boxShadow = window.scrollY > SCROLL_THRESHOLD 
+                ? 'var(--shadow-hover)' 
+                : 'var(--shadow)';
         });
-    }, observerOptions);
+    },
 
-    // Selecionar elementos para animar
-    const animatedElements = document.querySelectorAll('.service-card, .project-card, .contact-card, .section-title, .section-subtitle, .hero-content, .hero-image, .about-visual, .about-text, .skills-wrapper, .store-actions, .check-list li, .col-text p');
+    activeLink() {
+        const sections = document.querySelectorAll('section[id]');
+        
+        window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+
+            sections.forEach(current => {
+                const sectionHeight = current.offsetHeight;
+                const sectionTop = current.offsetTop - 100;
+                const sectionId = current.getAttribute('id');
+                const link = document.querySelector(`.nav-menu a[href*=${sectionId}]`);
+
+                if (link) {
+                    if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                }
+            });
+        });
+    },
     
-    animatedElements.forEach((el, index) => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        // Adiciona um pequeno atraso para efeito escalonado
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Integração com API do GitHub
-    // CONFIGURAÇÃO: Coloque seu nome de usuário do GitHub abaixo
-    const githubUser = 'https-gustavo'; 
-    const portfolioContainer = document.getElementById('portfolio-container');
-
-    // Mapeamento de linguagens para ícones do Devicon
-    const languageIcons = {
-        'JavaScript': 'devicon-javascript-plain',
-        'TypeScript': 'devicon-typescript-plain',
-        'Python': 'devicon-python-plain',
-        'HTML': 'devicon-html5-plain',
-        'CSS': 'devicon-css3-plain',
-        'Java': 'devicon-java-plain',
-        'C#': 'devicon-csharp-plain',
-        'C++': 'devicon-cplusplus-plain',
-        'C': 'devicon-c-plain',
-        'PHP': 'devicon-php-plain',
-        'Ruby': 'devicon-ruby-plain',
-        'Go': 'devicon-go-plain',
-        'Rust': 'devicon-rust-plain',
-        'Swift': 'devicon-swift-plain',
-        'Kotlin': 'devicon-kotlin-plain',
-        'Dart': 'devicon-dart-plain',
-        'Shell': 'devicon-bash-plain',
-        'PowerShell': 'devicon-powershell-plain',
-        'Vue': 'devicon-vuejs-plain',
-        'React': 'devicon-react-original',
-        'Angular': 'devicon-angularjs-plain',
-        'Svelte': 'devicon-svelte-plain',
-        'Docker': 'devicon-docker-plain',
-        'Kubernetes': 'devicon-kubernetes-plain'
-    };
-
-    // Helper para obter classe do ícone baseado na linguagem
-    function getLanguageIconClass(language) {
-        if (!language) return 'ph ph-code';
-        const lang = language.toLowerCase();
+    progressBar() {
+        const progress = document.querySelector('.scroll-progress');
+        if (!progress) return;
         
-        const map = {
-            'javascript': 'devicon-javascript-plain',
-            'typescript': 'devicon-typescript-plain',
-            'html': 'devicon-html5-plain',
-            'css': 'devicon-css3-plain',
-            'python': 'devicon-python-plain',
-            'java': 'devicon-java-plain',
-            'c#': 'devicon-csharp-plain',
-            'php': 'devicon-php-plain',
-            'ruby': 'devicon-ruby-plain',
-            'go': 'devicon-go-original-wordmark',
-            'rust': 'devicon-rust-plain',
-            'c++': 'devicon-cplusplus-plain',
-            'c': 'devicon-c-plain',
-            'swift': 'devicon-swift-plain',
-            'kotlin': 'devicon-kotlin-plain',
-            'dart': 'devicon-dart-plain'
+        window.addEventListener('scroll', () => {
+            const totalScroll = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = totalScroll / height;
+            progress.style.width = `${scrolled * 100}%`;
+        });
+    },
+    
+    revealAnimations() {
+        const observerOptions = {
+            threshold: ANIMATION_THRESHOLD,
+            rootMargin: "0px 0px -50px 0px"
         };
-        
-        return map[lang] || 'ph ph-code';
-    }
 
-    async function getGitHubProjects() {
-        // Se o usuário não estiver configurado, sai da função
-        if (!githubUser) return;
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const elements = document.querySelectorAll('.service-card, .project-card, .contact-card, .section-title, .section-subtitle, .hero-content, .hero-image, .about-visual, .about-text, .skills-wrapper, .store-actions, .check-list li, .col-text p');
+        
+        elements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+        
+        // Expose observer for dynamic elements
+        window.revealObserver = observer;
+    }
+};
+
+const GithubIntegration = {
+    async init() {
+        const container = document.getElementById('portfolio-container');
+        if (!container || !GITHUB_USER) return;
 
         try {
-            // Busca repositórios ordenados por atualização
-            const response = await fetch(`https://api.github.com/users/${githubUser}/repos?sort=updated&direction=desc`);
-            
-            if (!response.ok) {
-                console.log('Usuário do GitHub não encontrado ou erro na API');
-                return;
-            }
-            
-            const repos = await response.json();
-            
-            // Filtra para remover forks e projetos específicos
-            const myRepos = repos.filter(repo => 
-                !repo.fork && 
-                !repo.name.toUpperCase().includes('TQI')
-            ).slice(0, 6);
-
-            if (myRepos.length > 0) {
-                portfolioContainer.innerHTML = ''; // Limpa os projetos estáticos
-                
-                myRepos.forEach(repo => {
-                    const card = document.createElement('article');
-                    card.classList.add('project-card');
-                    
-                    const description = repo.description || 'Projeto desenvolvido com foco em performance e qualidade de código.';
-                    const language = repo.language || 'Dev';
-                    const iconClass = getLanguageIconClass(repo.language);
-                    
-                    // Cria o card do projeto
-                    card.innerHTML = `
-                        <div class="project-header">
-                            <i class="ph ph-folder-open folder-icon"></i>
-                            <div class="project-links">
-                                <a href="${repo.html_url}" target="_blank" class="link-icon" title="Ver Código"><i class="ph ph-github-logo"></i></a>
-                                ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" class="link-icon" title="Ver Demo"><i class="ph ph-arrow-square-out"></i></a>` : ''}
-                            </div>
-                        </div>
-                        
-                        <a href="${repo.html_url}" target="_blank" class="project-title-link">
-                            <h3>${repo.name}</h3>
-                        </a>
-                        
-                        <p>${description}</p>
-                        
-                        <div class="project-tech-list">
-                            <span><i class="${iconClass}"></i> ${language}</span>
-                        </div>
-                    `;
-                    
-                    portfolioContainer.appendChild(card);
-                    
-                    // Aplica o efeito Tilt 3D
-                    applyTiltEffect(card);
-                    
-                    // Adiciona animação de entrada
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                    observer.observe(card);
-                });
-            }
+            const repos = await this.fetchRepos();
+            this.renderRepos(repos, container);
         } catch (error) {
-            console.error('Erro ao carregar projetos do GitHub:', error);
+            console.error('GitHub integration failed:', error);
+            // Fallback content is already in HTML, so no action needed
         }
+    },
+
+    async fetchRepos() {
+        const response = await fetch(`https://api.github.com/users/${GITHUB_USER}/repos?sort=updated&direction=desc`);
+        if (!response.ok) throw new Error('API Error');
+        const repos = await response.json();
+        
+        // Filtra forks e projetos específicos que não devem aparecer
+        return repos.filter(repo => 
+            !repo.fork && 
+            !repo.name.toUpperCase().includes('TQI') &&
+            !repo.name.toUpperCase().includes('TECHSOLUTIONS')
+        ).slice(0, 6);
+    },
+
+    renderRepos(repos, container) {
+        if (repos.length === 0) return;
+        
+        container.innerHTML = ''; // Clear static content
+
+        repos.forEach(repo => {
+            const card = document.createElement('article');
+            card.className = 'project-card';
+            
+            const description = repo.description || 'Projeto desenvolvido com foco em performance e qualidade de código.';
+            const language = repo.language || 'Dev';
+            const iconClass = getLanguageIconClass(repo.language);
+            
+            card.innerHTML = `
+                <div class="project-header">
+                    <i class="ph ph-folder-open folder-icon"></i>
+                    <div class="project-links">
+                        <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="link-icon" title="Ver Código" aria-label="Ver código do projeto ${repo.name}"><i class="ph ph-github-logo"></i></a>
+                        ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener noreferrer" class="link-icon" title="Ver Demo" aria-label="Ver demo do projeto ${repo.name}"><i class="ph ph-arrow-square-out"></i></a>` : ''}
+                    </div>
+                </div>
+                
+                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="project-title-link">
+                    <h3>${repo.name}</h3>
+                </a>
+                
+                <p>${description}</p>
+                
+                <div class="project-tech-list">
+                    <span><i class="${iconClass}"></i> ${language}</span>
+                </div>
+            `;
+            
+            container.appendChild(card);
+            
+            // Re-apply effects
+            if (window.TiltEffect) window.TiltEffect.applyTo(card);
+            if (window.revealObserver) {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                window.revealObserver.observe(card);
+            }
+        });
     }
+};
 
-    // Efeito de Digitação (Typewriter)
-    const typingText = document.querySelector('.typing-text');
-    if (typingText) {
+const VisualEffects = {
+    init() {
+        this.typewriter();
+        this.magneticButtons();
+        this.spotlight();
+        this.binaryBackground();
+        this.tilt();
+    },
+
+    typewriter() {
+        const el = document.querySelector('.typing-text');
+        if (!el) return;
+
         const words = ["Tecnologia", "Hardware", "Performance", "Inovação", "Web Design"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-        let typeSpeed = 100;
-
-        function type() {
+        let wordIndex = 0, charIndex = 0, isDeleting = false;
+        
+        const type = () => {
             const currentWord = words[wordIndex];
+            const speed = isDeleting ? 50 : 150;
             
             if (isDeleting) {
-                typingText.textContent = currentWord.substring(0, charIndex - 1);
                 charIndex--;
-                typeSpeed = 50;
             } else {
-                typingText.textContent = currentWord.substring(0, charIndex + 1);
                 charIndex++;
-                typeSpeed = 150;
             }
+            
+            el.textContent = currentWord.substring(0, charIndex);
+
+            let nextSpeed = speed;
 
             if (!isDeleting && charIndex === currentWord.length) {
                 isDeleting = true;
-                typeSpeed = 2000; // Pausa no final
+                nextSpeed = 2000;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 wordIndex = (wordIndex + 1) % words.length;
-                typeSpeed = 500; // Pausa antes da próxima palavra
+                nextSpeed = 500;
             }
 
-            setTimeout(type, typeSpeed);
-        }
+            setTimeout(type, nextSpeed);
+        };
 
-        // Iniciar digitação
         setTimeout(type, 1000);
-    }
+    },
 
-    // Barra de Progresso de Rolagem
-    const scrollProgress = document.querySelector('.scroll-progress');
-    
-    window.addEventListener('scroll', () => {
-        const totalScroll = document.documentElement.scrollTop;
-        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scroll = `${totalScroll / windowHeight}`;
+    magneticButtons() {
+        const buttons = document.querySelectorAll('.btn');
         
-        if (scrollProgress) {
-            scrollProgress.style.width = `${scroll * 100}%`;
+        buttons.forEach(btn => {
+            btn.classList.add('btn-magnetic');
+            
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+    },
+
+    spotlight() {
+        const storeCard = document.querySelector('.store-showcase');
+        if (storeCard) {
+            storeCard.addEventListener('mousemove', (e) => {
+                const rect = storeCard.getBoundingClientRect();
+                storeCard.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                storeCard.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
+            });
         }
-    });
+    },
 
-    // Botões Magnéticos
-    const buttons = document.querySelectorAll('.btn');
-    
-    buttons.forEach(btn => {
-        btn.classList.add('btn-magnetic');
-        
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
-        });
-        
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = 'translate(0, 0)';
-        });
-    });
+    binaryBackground() {
+        const hero = document.querySelector('.hero');
+        if (!hero) return;
 
-    // Animação de Fundo Binário
-    const heroSection = document.querySelector('.hero');
-    if (heroSection) {
-        // Criar container
-        const bgContainer = document.createElement('div');
-        bgContainer.classList.add('binary-bg');
-        heroSection.insertBefore(bgContainer, heroSection.firstChild);
-        
-        // Função para criar dígitos
-        function createDigit() {
+        const container = document.createElement('div');
+        container.className = 'binary-bg';
+        hero.insertBefore(container, hero.firstChild);
+
+        setInterval(() => {
             const digit = document.createElement('span');
-            digit.classList.add('binary-digit');
+            digit.className = 'binary-digit';
             digit.textContent = Math.random() > 0.5 ? '1' : '0';
-            
-            // Posição aleatória
             digit.style.left = `${Math.random() * 100}%`;
             digit.style.top = `${Math.random() * 100}%`;
+            digit.style.animationDuration = `${2 + Math.random() * 3}s`;
             
-            // Tamanho e duração aleatórios
-            const duration = 2 + Math.random() * 3;
-            digit.style.animationDuration = `${duration}s`;
-            
-            bgContainer.appendChild(digit);
-            
-            // Remover após animação
-            setTimeout(() => {
-                digit.remove();
-            }, duration * 1000);
-        }
-        
-        // Criar dígitos periodicamente
-        setInterval(createDigit, 100);
+            container.appendChild(digit);
+            setTimeout(() => digit.remove(), 5000);
+        }, 100);
+    },
+
+    tilt() {
+        window.TiltEffect = {
+            applyTo(card) {
+                card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+                
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const rotateX = ((y - rect.height / 2) / rect.height * 2) * -5;
+                    const rotateY = ((x - rect.width / 2) / rect.width * 2) * 5;
+
+                    card.style.transition = 'none';
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease';
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                });
+            }
+        };
+
+        const cards = document.querySelectorAll('.service-card, .project-card, .contact-card');
+        cards.forEach(card => window.TiltEffect.applyTo(card));
     }
+};
 
-    // Efeito Tilt 3D
-    function applyTiltEffect(card) {
-        // Adiciona transição para retorno suave
-        card.style.transition = 'transform 0.1s ease, box-shadow 0.3s ease';
+// =========================================
+// INITIALIZATION
+// =========================================
 
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            // Calcular rotação baseada na posição do cursor
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = ((y - centerY) / centerY) * -5; // Rotação reduzida para sutileza
-            const rotateY = ((x - centerX) / centerX) * 5;
-
-            // Remove transição durante movimento para resposta instantânea
-            card.style.transition = 'none';
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-        });
-
-        card.addEventListener('mouseleave', () => {
-            // Restaura transição para retorno suave
-            card.style.transition = 'transform 0.5s ease, box-shadow 0.3s ease';
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
-    }
-
-    // Aplicar a elementos existentes
-    const tiltCards = document.querySelectorAll('.service-card, .project-card, .contact-card');
-    tiltCards.forEach(card => applyTiltEffect(card));
+document.addEventListener('DOMContentLoaded', () => {
+    MobileMenu.init();
+    ThemeManager.init();
+    ScrollEffects.init();
+    GithubIntegration.init();
+    VisualEffects.init();
 });
