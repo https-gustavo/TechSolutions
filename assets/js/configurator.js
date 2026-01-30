@@ -73,14 +73,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (e.target === modal) closeConfigurator();
         });
 
-        // Acessibilidade: Navegação por teclado
+        // Acessibilidade: Fechar modal com a tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.style.display === 'flex') {
                 closeConfigurator();
             }
         });
 
-        // Binding bidirecional (Input -> State -> Summary)
+        // Atualização dinâmica do resumo conforme o usuário digita
         Object.keys(inputs).forEach(key => {
             const input = inputs[key];
             if (input) {

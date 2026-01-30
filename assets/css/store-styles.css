@@ -56,12 +56,13 @@
 
 /* Componentes Visuais
    ----------------------------------------- */
+/* Badge Premium */
 .store-badge {
     display: inline-flex;
     align-items: center;
     padding: 6px 12px;
     background: rgba(139, 92, 246, 0.1);
-    color: #a78bfa;
+    color: var(--primary-color);
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -78,7 +79,7 @@
     font-size: 2.5rem;
     line-height: 1.1;
     margin-bottom: 16px;
-    color: #f8fafc;
+    color: var(--text-main);
     letter-spacing: -0.03em;
 }
 
@@ -92,7 +93,7 @@
 #store .section-description {
     font-size: 1.05rem;
     line-height: 1.6;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-bottom: 24px;
     max-width: 90%;
 }
@@ -109,7 +110,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    color: #cbd5e1;
+    color: var(--text-muted);
     font-size: 0.95rem;
     line-height: 1.4;
 }
