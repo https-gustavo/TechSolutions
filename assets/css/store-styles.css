@@ -154,26 +154,29 @@
 }
 
 .btn-budget {
-    background: white;
-    color: #0f172a;
-    border: 1px solid white;
+    background: var(--primary-color);
+    color: white;
+    border: 1px solid var(--primary-color);
 }
 
 .btn-budget:hover {
-    background: #f1f5f9;
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
     transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
 }
 
 .btn-sale {
     background: transparent;
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
 }
 
 .btn-sale:hover {
-    background: var(--bg-card);
+    background: var(--primary-color);
+    color: white;
     border-color: var(--primary-color);
-    color: var(--primary-color);
+    transform: translateY(-1px);
     box-shadow: var(--shadow);
 }
 

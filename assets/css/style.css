@@ -516,22 +516,7 @@ img { max-width: 100%; display: block; }
     gap: 5px;
 }
 
-/* Remove estilos antigos não utilizados */
-.project-image-link, .project-image, .project-placeholder, .project-content, .project-tech {
-    display: none;
-}
-.link-icon { 
-    font-size: 1.2rem; 
-    color: var(--text-muted); 
-    transition: all 0.2s; 
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-    font-size: 0.9rem;
-}
-.link-icon:hover { color: var(--primary-color); }
-.link-icon i { font-size: 1.2rem; }
+
 
 /* Sobre Mim */
 .reverse-mobile { flex-direction: row; }

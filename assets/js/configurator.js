@@ -247,7 +247,7 @@ ${customer.obs || 'Nenhuma'}
         const targetPhone = '5535920021630'; 
         const whatsappUrl = `https://wa.me/${targetPhone}?text=${encodeURIComponent(data.body)}`;
         
-        window.open(whatsappUrl, '_blank');
+        window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
         closeConfigurator();
     }
 
