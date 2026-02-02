@@ -39,6 +39,12 @@ const LANGUAGE_ICONS = {
     'kubernetes': 'devicon-kubernetes-plain'
 };
 
+const CUSTOM_DESCRIPTIONS = {
+    'Processo-Seletivo---ESO': 'Projeto de E-commerce desenvolvido para processo seletivo da Sistema ESO, implementando consumo de API e atendendo a uma rigorosa lista de requisitos técnicos.',
+    'controle-estoque': 'Sistema de gestão para pequenos comerciantes, desenvolvido como projeto acadêmico para a UNIVESP, focado em organização e controle eficiente de fluxo de produtos.',
+    'ProjetoIntegrador': 'Ferramenta estratégica para precificação e análise de margens, desenvolvida academicamente para auxiliar pequenos empreendedores na gestão financeira inteligente.'
+};
+
 // =========================================
 // UTILITIES
 // =========================================
@@ -251,7 +257,7 @@ const GithubIntegration = {
             const card = document.createElement('article');
             card.className = 'project-card';
             
-            const description = repo.description || 'Projeto desenvolvido com foco em performance e qualidade de código.';
+            const description = CUSTOM_DESCRIPTIONS[repo.name] || repo.description || 'Projeto desenvolvido com foco em performance e qualidade de código.';
             const language = repo.language || 'Dev';
             const iconClass = getLanguageIconClass(repo.language);
             
