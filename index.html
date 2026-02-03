@@ -35,6 +35,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/store-styles.css">
+    <link rel="stylesheet" href="assets/css/gallery-styles.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicon/devicon@latest/devicon.min.css" />
     
     <!-- Ícones (Phosphor Icons) -->
@@ -55,7 +56,7 @@
                     <li><a href="#home" class="nav-link active">Início</a></li>
                     <li><a href="#services" class="nav-link">Serviços</a></li>
                     <li><a href="#store" class="nav-link">Loja & Montagem</a></li>
-                    <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                    <li><a href="#portfolio" class="nav-link">Modelos & Portfólio</a></li>
                     <li><a href="#about" class="nav-link">Sobre</a></li>
                     <li><a href="#contact" class="nav-link btn-contact">Contato</a></li>
                 </ul>
@@ -240,84 +241,38 @@
         </div>
     </section>
 
-    <!-- Seção de Portfólio -->
+    <!-- Seção de Portfólio & Modelos -->
     <section id="portfolio" class="section">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Portfólio de Desenvolvimento</h2>
-                <p class="section-subtitle">A transição da técnica para o código. Projetos de desenvolvimento web modernos.</p>
+                <h2 class="section-title">Galeria de Projetos</h2>
+                <p class="section-subtitle">Explore nossa coleção de modelos profissionais, aplicativos e sistemas desenvolvidos com alta tecnologia.</p>
             </div>
 
-            <div class="portfolio-grid" id="portfolio-container">
-                <!-- Projeto 1 -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <i class="ph ph-shopping-cart folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://github.com/https-gustavo/Processo-Seletivo---ESO" target="_blank" rel="noopener noreferrer" class="link-icon" title="Ver Código" aria-label="Ver código no GitHub"><i class="ph ph-github-logo"></i></a>
-                            <!-- <a href="#" class="link-icon" title="Ver Demo"><i class="ph ph-arrow-square-out"></i></a> -->
-                        </div>
-                    </div>
-                    
-                    <a href="https://github.com/https-gustavo/Processo-Seletivo---ESO" target="_blank" rel="noopener noreferrer" class="project-title-link">
-                        <h3>Loja Online - Sistema ESO</h3>
-                    </a>
-                    
-                    <p>Projeto de E-commerce desenvolvido para processo seletivo da Sistema ESO, implementando consumo de API e atendendo a uma rigorosa lista de requisitos técnicos.</p>
-                    
-                    <div class="project-tech-list">
-                        <span><i class="devicon-javascript-plain"></i> JavaScript</span>
-                        <span><i class="ph ph-plugs-connected"></i> API</span>
-                        <span><i class="devicon-css3-plain"></i> CSS</span>
-                    </div>
-                </article>
-
-                <!-- Projeto 2 -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <i class="ph ph-package folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://github.com/https-gustavo/controle-estoque" target="_blank" rel="noopener noreferrer" class="link-icon" title="Ver Código" aria-label="Ver código no GitHub"><i class="ph ph-github-logo"></i></a>
-                            <!-- <a href="#" class="link-icon" title="Ver Demo"><i class="ph ph-arrow-square-out"></i></a> -->
-                        </div>
-                    </div>
-                    
-                    <a href="https://github.com/https-gustavo/controle-estoque" target="_blank" rel="noopener noreferrer" class="project-title-link">
-                        <h3>Controle de Estoque - UNIVESP</h3>
-                    </a>
-                    
-                    <p>Sistema de gestão para pequenos comerciantes, desenvolvido como projeto acadêmico para a UNIVESP, focado em organização e controle eficiente de fluxo de produtos.</p>
-                    
-                    <div class="project-tech-list">
-                        <span><i class="devicon-react-original"></i> React</span>
-                        <span><i class="devicon-nodejs-plain"></i> Node.js</span>
-                    </div>
-                </article>
-
-                <!-- Projeto 3 -->
-                <article class="project-card">
-                    <div class="project-header">
-                        <i class="ph ph-calculator folder-icon"></i>
-                        <div class="project-links">
-                            <a href="https://github.com/https-gustavo/ProjetoIntegrador" target="_blank" rel="noopener noreferrer" class="link-icon" title="Ver Código" aria-label="Ver código no GitHub"><i class="ph ph-github-logo"></i></a>
-                            <!-- <a href="#" class="link-icon" title="Ver Demo"><i class="ph ph-arrow-square-out"></i></a> -->
-                        </div>
-                    </div>
-                    
-                    <a href="https://github.com/https-gustavo/ProjetoIntegrador" target="_blank" rel="noopener noreferrer" class="project-title-link">
-                        <h3>Calculadora de Lucro</h3>
-                    </a>
-                    
-                    <p>Ferramenta estratégica para precificação e análise de margens, desenvolvida academicamente para auxiliar pequenos empreendedores na gestão financeira inteligente.</p>
-                    
-                    <div class="project-tech-list">
-                        <span><i class="devicon-javascript-plain"></i> JavaScript</span>
-                        <span><i class="ph ph-chart-line-up"></i> Finance</span>
-                    </div>
-                </article>
+            <!-- Grid da Galeria -->
+            <div id="gallery-grid" class="portfolio-grid">
+                <!-- Conteúdo carregado via JavaScript (gallery.js) -->
             </div>
         </div>
     </section>
+
+    <!-- Modal de Visualização (Atualizado) -->
+    <div id="template-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="device-controls">
+                    <button class="device-btn active" data-device="desktop" title="Desktop"><i class="ph ph-desktop"></i></button>
+                    <button class="device-btn" data-device="tablet" title="Tablet"><i class="ph ph-device-tablet"></i></button>
+                    <button class="device-btn" data-device="mobile" title="Mobile"><i class="ph ph-device-mobile"></i></button>
+                </div>
+                <button id="close-modal" class="close-btn"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-frame-container desktop">
+                <iframe id="template-frame" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Seção Sobre -->
     <section id="about" class="section bg-alt">
@@ -381,6 +336,49 @@
             </div>
         </div>
     </section>
+
+    <!-- Botão Flutuante Terminal -->
+    <div class="floating-terminal-btn" id="terminal-toggle" role="button" aria-label="Abrir Terminal" title="Abrir Terminal Interativo">
+        <i class="ph ph-terminal-window"></i>
+    </div>
+
+    <!-- Container do Terminal Flutuante (Inicialmente Oculto) -->
+    <div class="floating-terminal-container hidden" id="floating-terminal">
+        <div class="terminal-window floating">
+            <div class="terminal-bar">
+                <div class="terminal-buttons">
+                    <span class="btn-dot red" id="close-terminal"></span>
+                    <span class="btn-dot yellow"></span>
+                    <span class="btn-dot green"></span>
+                </div>
+                <div class="terminal-title">user@techsolutions:~</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="terminal-output" id="terminal-output">
+                    <div class="output-line">Bem-vindo ao TechSolutions CLI v1.0.0</div>
+                    <div class="output-line">Digite <span class="cmd-highlight">'ajuda'</span> para ver a lista de comandos.</div>
+                    <br>
+                </div>
+                <div class="terminal-input-area">
+                    <span class="prompt">➜  ~</span>
+                    <input type="text" id="terminal-input" autocomplete="off" spellcheck="false">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Visualização de Templates -->
+    <div class="modal-overlay" id="template-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Visualização de Modelo</h3>
+                <button class="btn-close-modal" id="close-modal"><i class="ph ph-x"></i></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="template-frame" src="" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
 
     <!-- Rodapé -->
     <footer class="footer">
@@ -527,5 +525,7 @@
     <!-- Scripts -->
     <script src="assets/js/script.js"></script>
     <script src="assets/js/configurator.js"></script>
+    <script src="assets/js/gallery.js" defer></script>
+    <script src="assets/js/tools.js" defer></script>
 </body>
 </html>

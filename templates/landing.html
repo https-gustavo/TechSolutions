@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lorem Ipsum - Dolor Sit Amet</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/@phosphor-icons/web" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a252f;
+            --accent: #c0a375;
+            --accent-light: #e0c395;
+            --text: #333;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            font-family: 'Lato', sans-serif; 
+            color: var(--text); 
+            line-height: 1.6; 
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar */
+        ::-webkit-scrollbar { display: none; }
+        body { -ms-overflow-style: none; scrollbar-width: none; }
+
+        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
+
+        /* Utilities */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .btn { 
+            display: inline-block; 
+            padding: 15px 40px; 
+            background: var(--accent); 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover { background: #a3885d; transform: translateY(-2px); }
+        .btn-outline { 
+            background: transparent; 
+            border: 2px solid var(--white); 
+        }
+        .btn-outline:hover { background: var(--white); color: var(--primary); }
+
+        /* Header */
+        header { 
+            background: rgba(26, 37, 47, 0.95); 
+            position: fixed; 
+            width: 100%; 
+            z-index: 1000; 
+            padding: 15px 0;
+            backdrop-filter: blur(10px);
+        }
+        .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        .logo { 
+            color: var(--white); 
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.5rem; 
+            font-weight: 700; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i { color: var(--accent); font-size: 1.8rem; }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            color: rgba(255,255,255,0.8); 
+            text-decoration: none; 
+            font-size: 0.9rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            transition: 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn { 
+            padding: 10px 25px; 
+            background: transparent; 
+            border: 1px solid var(--accent); 
+            color: var(--accent); 
+        }
+        .nav-btn:hover { background: var(--accent); color: white; }
+
+        /* Hero */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(26, 37, 47, 0.85), rgba(26, 37, 47, 0.7)), url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1920&q=80') center/cover fixed; 
+            display: flex; 
+            align-items: center; 
+            text-align: center; 
+            color: white;
+            padding-top: 80px;
+        }
+        .hero-content { max-width: 800px; margin: 0 auto; opacity: 0; transform: translateY(30px); animation: fadeInUp 1s forwards 0.5s; }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; color: rgba(255,255,255,0.9); }
+        
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stats */
+        .stats { background: var(--accent); color: white; padding: 40px 0; }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
+        .stat-item h3 { font-size: 2.5rem; margin-bottom: 5px; }
+        .stat-item p { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+
+        /* Areas */
+        .areas { padding: 100px 0; background: var(--white); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .section-header .divider { width: 60px; height: 3px; background: var(--accent); margin: 0 auto; }
+        
+        .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .area-card { 
+            background: var(--light-bg); 
+            padding: 40px; 
+            transition: 0.4s; 
+            border-bottom: 3px solid transparent;
+        }
+        .area-card:hover { 
+            transform: translateY(-10px); 
+            background: white; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
+            border-bottom-color: var(--accent);
+        }
+        .area-icon { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
+        .area-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); }
+        .area-card a { color: var(--accent); text-decoration: none; font-weight: 700; margin-top: 20px; display: inline-block; }
+
+        /* About Split */
+        .about { display: flex; flex-wrap: wrap; }
+        .about-img { flex: 1; min-width: 400px; background: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=80') center/cover; min-height: 500px; }
+        .about-content { flex: 1; min-width: 400px; padding: 80px; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; }
+        .about-content h2 { font-size: 2.5rem; margin-bottom: 20px; }
+        .about-content p { margin-bottom: 30px; color: rgba(255,255,255,0.7); }
+
+        /* Testimonials */
+        .testimonials { padding: 100px 0; background: var(--light-bg); text-align: center; }
+        .testimonial-slider { max-width: 800px; margin: 0 auto; position: relative; overflow: hidden; }
+        .testimonial-track { display: flex; transition: transform 0.5s ease; }
+        .testimonial-item { min-width: 100%; padding: 20px; }
+        .quote { font-size: 1.5rem; font-style: italic; color: var(--primary); margin-bottom: 30px; font-family: 'Playfair Display', serif; }
+        .author { font-weight: 700; color: var(--accent); }
+        .dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
+        .dot { width: 12px; height: 12px; background: #ddd; border-radius: 50%; cursor: pointer; }
+        .dot.active { background: var(--accent); }
+
+        /* Contact CTA */
+        .contact-cta { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
+        
+        /* Footer */
+        footer { background: #111; color: rgba(255,255,255,0.5); padding: 50px 0 20px; font-size: 0.9rem; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
+        .footer h4 { color: white; margin-bottom: 20px; }
+        .footer ul { list-style: none; }
+        .footer ul li { margin-bottom: 10px; }
+        .footer a { color: inherit; text-decoration: none; transition: 0.3s; }
+        .footer a:hover { color: var(--accent); }
+
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .about-content { padding: 40px; }
+            .nav-links { display: none; } /* Simplified for mobile demo */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-wrapper">
+            <div class="logo"><i class="ph ph-scales"></i> Lorem & Ipsum</div>
+            <nav class="nav-links">
+                <a href="#">Lorem</a>
+                <a href="#">Ipsum</a>
+                <a href="#">Dolor</a>
+                <a href="#">Sit</a>
+                <a href="#" class="btn nav-btn">Amet</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Lorem Ipsum<br>Dolor Sit Amet</h1>
+            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+            <a href="#" class="btn">Ut Enim</a>
+            <a href="#" class="btn btn-outline" style="margin-left: 15px;">Ad Minim</a>
+        </div>
+    </section>
+
+    <div class="stats">
+        <div class="container stats-grid">
+            <div class="stat-item">
+                <h3>20+</h3>
+                <p>Veniam</p>
+            </div>
+            <div class="stat-item">
+                <h3>1.5k</h3>
+                <p>Nostrud</p>
+            </div>
+            <div class="stat-item">
+                <h3>15</h3>
+                <p>Ullamco</p>
+            </div>
+            <div class="stat-item">
+                <h3>98%</h3>
+                <p>Laboris</p>
+            </div>
+        </div>
+    </div>
+
+    <section class="areas">
+        <div class="container">
+            <div class="section-header">
+                <h2>Quis Nostrud</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="areas-grid">
+                <div class="area-card">
+                    <i class="ph ph-briefcase area-icon"></i>
+                    <h3>Occaecat Cupidatat</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+                    <a href="#">Saiba mais &rarr;</a>
+                </div>
+                <div class="area-card">
+                    <i class="ph ph-users area-icon"></i>
+                    <h3>Non Proident</h3>
+                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
+                    <a href="#">Saiba mais &rarr;</a>
+                </div>
+                <div class="area-card">
+                    <i class="ph ph-gavel area-icon"></i>
+                    <h3>Sunt in Culpa</h3>
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                    <a href="#">Saiba mais &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <div class="about-img"></div>
+        <div class="about-content">
+            <h2>Excepteur Sint</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+            <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+            <a href="#" class="btn btn-outline" style="align-self: flex-start;">Mollit Anim</a>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <div class="container">
+            <div class="section-header">
+                <h2>Duis Aute Irure</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="testimonial-slider">
+                <div class="testimonial-track" id="track">
+                    <div class="testimonial-item">
+                        <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
+                        <p class="author">- Cliente Lorem, CEO</p>
+                    </div>
+                    <div class="testimonial-item">
+                        <p class="quote">"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
+                        <p class="author">- Cliente Ipsum, CTO</p>
+                    </div>
+                    <div class="testimonial-item">
+                        <p class="quote">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
+                        <p class="author">- Cliente Dolor, Manager</p>
+                    </div>
+                </div>
+                <div class="dots" id="dots">
+                    <div class="dot active" onclick="slide(0)"></div>
+                    <div class="dot" onclick="slide(1)"></div>
+                    <div class="dot" onclick="slide(2)"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact-cta">
+        <div class="container">
+            <h2>Voluptate Velit Esse?</h2>
+            <p style="margin: 20px 0 40px; opacity: 0.8;">Cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat.</p>
+            <a href="#" class="btn" style="background: white; color: var(--primary);">Contact Lorem</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Lorem & Ipsum</h4>
+                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Links</h4>
+                    <ul>
+                        <li><a href="#">Lorem</a></li>
+                        <li><a href="#">Ipsum</a></li>
+                        <li><a href="#">Dolor</a></li>
+                        <li><a href="#">Sit</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contato</h4>
+                    <ul>
+                        <li>(00) 00000-0000</li>
+                        <li>contact@loremipsum.com</li>
+                        <li>Lorem Street, 1000</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px;">
+                <p>&copy; 2024 Lorem & Ipsum. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="whatsapp-float">
+        <i class="ph ph-whatsapp-logo"></i>
+    </a>
+
+    <script>
+        // Simple Slider Logic
+        const track = document.getElementById('track');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+
+        function slide(index) {
+            currentSlide = index;
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+            dots.forEach(d => d.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % 3;
+            slide(currentSlide);
+        }, 5000);
+    </script>
+</body>
+</html>
