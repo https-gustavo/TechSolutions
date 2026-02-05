@@ -6,6 +6,7 @@ const galleryData = [
         category: 'landing',
         description: 'Página de alta conversão projetada para escritórios jurídicos. Apresenta design sóbrio que transmite autoridade, com seções estratégicas para serviços, equipe e captação de leads.',
         image: 'ph-scales',
+        imageUrl: 'https://images.unsplash.com/photo-1589829542926-0373fd8fb7f0?auto=format&fit=crop&w=1200&q=80',
         tags: ['Alta Conversão', 'Design Responsivo', 'SEO Otimizado'],
         previewUrl: 'templates/landing.html',
         repoUrl: null
@@ -16,16 +17,18 @@ const galleryData = [
         category: 'ecommerce',
         description: 'Loja virtual moderna com experiência de compra fluida. Inclui carrinho interativo, sistema de notificações em tempo real e layout focado em maximizar vendas.',
         image: 'ph-storefront',
+        imageUrl: 'https://images.unsplash.com/photo-1511381932060-8bf2bda24484?auto=format&fit=crop&w=1200&q=80',
         tags: ['Carrinho Dinâmico', 'UI/UX Moderno', 'Interatividade'],
         previewUrl: 'templates/store.html',
         repoUrl: null
     },
     {
         id: 'app-finance',
-        title: 'Finance Pro Dashboard',
+        title: 'Dashboard Financeiro',
         category: 'app',
         description: 'Aplicação web mobile-first para gestão financeira pessoal. Interface limpa com gráficos interativos, controle de despesas e dashboard administrativo completo.',
         image: 'ph-device-mobile',
+        imageUrl: 'https://images.unsplash.com/photo-1553729489-0b4378d33269?auto=format&fit=crop&w=1200&q=80',
         tags: ['Mobile First', 'Dashboard', 'Gestão Financeira'],
         previewUrl: 'templates/app-dashboard.html',
         repoUrl: null
@@ -47,7 +50,6 @@ class GalleryManager {
     renderGallery() {
         this.grid.innerHTML = '';
         
-        // Render all items without filtering
         galleryData.forEach(item => {
             const card = this.createCard(item);
             this.grid.appendChild(card);
@@ -66,7 +68,7 @@ class GalleryManager {
         // Button generation (Preview or Github)
         let actionBtn = '';
         if (item.previewUrl) {
-            actionBtn = `<button class="btn-preview" data-src="${item.previewUrl}" aria-label="Visualizar ${item.title}"><i class="ph ph-eye"></i> Ver Demo</button>`;
+            actionBtn = `<button class="btn-preview" data-src="${item.previewUrl}" data-category="${item.category}" aria-label="Visualizar ${item.title}"><i class="ph ph-eye"></i> Ver Demo</button>`;
         } else if (item.repoUrl) {
             actionBtn = `<a href="${item.repoUrl}" target="_blank" class="btn-github" aria-label="Ver código"><i class="ph ph-github-logo"></i> Code</a>`;
         } else {
@@ -87,6 +89,9 @@ class GalleryManager {
             </div>
             <div class="project-footer">
                 ${actionBtn}
+                <div class="project-copyright">
+                    © Direitos Reservados a Tech Solutions
+                </div>
             </div>
         `;
         
@@ -100,7 +105,6 @@ class GalleryManager {
         
         if (!modal || !iframe) return;
 
-        // Close logic
         const closeModal = () => {
             modal.classList.remove('active');
             setTimeout(() => iframe.src = '', 300);
@@ -114,34 +118,60 @@ class GalleryManager {
             if (e.key === 'Escape') closeModal();
         });
 
-        // Device toggles
-        const deviceBtns = document.querySelectorAll('.device-btn');
-        const frameContainer = document.querySelector('.modal-frame-container');
+        const deviceBtns = modal.querySelectorAll('.device-btn');
+        const frameContainer = modal.querySelector('.modal-frame-container');
         
-        deviceBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                deviceBtns.forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                
-                const mode = btn.getAttribute('data-device');
-                frameContainer.className = 'modal-frame-container'; // reset
-                frameContainer.classList.add(mode);
+        if (frameContainer && deviceBtns.length > 0) {
+            deviceBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    deviceBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    
+                    const mode = btn.getAttribute('data-device');
+                    frameContainer.className = 'modal-frame-container'; // reset
+                    frameContainer.classList.add(mode);
+                });
             });
-        });
+        }
     }
 
     attachCardListeners() {
         const previewBtns = document.querySelectorAll('.btn-preview');
         const modal = document.getElementById('template-modal');
         const iframe = document.getElementById('template-frame');
+        const frameContainer = modal ? modal.querySelector('.modal-frame-container') : null;
+        const deviceBtns = modal ? modal.querySelectorAll('.device-btn') : [];
 
         previewBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 const src = btn.getAttribute('data-src');
+                const category = btn.getAttribute('data-category');
+
                 if (src && modal && iframe) {
                     iframe.src = src;
                     modal.classList.add('active');
+
+                    if (frameContainer && deviceBtns.length > 0) {
+                        const targetMode = category === 'app' ? 'mobile' : 'desktop';
+                        
+                        deviceBtns.forEach(b => {
+                            if (b.getAttribute('data-device') === 'desktop') {
+                                b.style.display = category === 'app' ? 'none' : 'flex';
+                            }
+                        });
+
+                        frameContainer.className = 'modal-frame-container';
+                        frameContainer.classList.add(targetMode);
+
+                        deviceBtns.forEach(b => {
+                            if (b.getAttribute('data-device') === targetMode) {
+                                b.classList.add('active');
+                            } else {
+                                b.classList.remove('active');
+                            }
+                        });
+                    }
                 }
             });
         });

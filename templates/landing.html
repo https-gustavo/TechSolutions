@@ -1,200 +1,351 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lorem Ipsum - Dolor Sit Amet</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Gustavo Menezes | Excelência Jurídica</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:wght@400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/@phosphor-icons/web" rel="stylesheet">
     <style>
         :root {
-            --primary: #1a252f;
-            --accent: #c0a375;
-            --accent-light: #e0c395;
-            --text: #333;
-            --light-bg: #f8f9fa;
+            --primary: #0f172a;
+            --secondary: #111827;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f3f4f6;
             --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            font-family: 'Lato', sans-serif; 
+            font-family: 'Montserrat', sans-serif; 
             color: var(--text); 
-            line-height: 1.6; 
+            line-height: 1.8; 
             overflow-x: hidden;
+            background-color: var(--white);
         }
-
-        /* Hide scrollbar */
         ::-webkit-scrollbar { display: none; }
         body { -ms-overflow-style: none; scrollbar-width: none; }
 
-        h1, h2, h3, h4 { font-family: 'Playfair Display', serif; }
-
-        /* Utilities */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Playfair Display', serif; color: var(--primary); }
+        
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        
         .btn { 
-            display: inline-block; 
-            padding: 15px 40px; 
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 48px; 
             background: var(--accent); 
-            color: white; 
+            color: var(--white); 
             text-decoration: none; 
-            font-weight: 700; 
+            font-weight: 500; 
             text-transform: uppercase; 
-            letter-spacing: 1px;
-            transition: 0.3s;
-            border: none;
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            transition: all 0.4s ease;
+            border: 1px solid var(--accent);
             cursor: pointer;
         }
-        .btn:hover { background: #a3885d; transform: translateY(-2px); }
+        .btn:hover { 
+            background: transparent; 
+            color: var(--accent); 
+            border-color: var(--accent);
+        }
+        
         .btn-outline { 
             background: transparent; 
-            border: 2px solid var(--white); 
+            border: 1px solid var(--white); 
+            color: var(--white);
         }
-        .btn-outline:hover { background: var(--white); color: var(--primary); }
+        .btn-outline:hover { 
+            background: var(--white); 
+            color: var(--accent); 
+            border-color: var(--accent);
+        }
 
-        /* Header */
         header { 
-            background: rgba(26, 37, 47, 0.95); 
+            background: rgba(15, 23, 42, 0.95); 
             position: fixed; 
             width: 100%; 
             z-index: 1000; 
-            padding: 15px 0;
+            padding: 20px 0;
             backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.3s ease;
         }
         .nav-wrapper { display: flex; justify-content: space-between; align-items: center; }
+        
         .logo { 
             color: var(--white); 
-            font-family: 'Playfair Display', serif; 
-            font-size: 1.5rem; 
-            font-weight: 700; 
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.8rem; 
+            font-weight: 600; 
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
-        .logo i { color: var(--accent); font-size: 1.8rem; }
+        .logo i { color: var(--accent); font-size: 2rem; }
         
-        .nav-links { display: flex; gap: 30px; }
+        .nav-links { display: flex; gap: 40px; }
         .nav-links a { 
-            color: rgba(255,255,255,0.8); 
+            color: rgba(255,255,255,0.7); 
             text-decoration: none; 
-            font-size: 0.9rem; 
+            font-size: 0.8rem; 
             text-transform: uppercase; 
-            letter-spacing: 1px; 
+            letter-spacing: 2px; 
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
             transition: 0.3s;
         }
         .nav-links a:hover { color: var(--accent); }
-        .nav-btn { 
-            padding: 10px 25px; 
-            background: transparent; 
-            border: 1px solid var(--accent); 
-            color: var(--accent); 
-        }
-        .nav-btn:hover { background: var(--accent); color: white; }
+        .nav-links a:hover::after { width: 100%; }
 
-        /* Hero */
         .hero { 
             height: 100vh; 
-            background: linear-gradient(rgba(26, 37, 47, 0.85), rgba(26, 37, 47, 0.7)), url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1920&q=80') center/cover fixed; 
+            background: radial-gradient(1200px 600px at 30% 0%, rgba(37, 99, 235, 0.25), transparent 60%), linear-gradient(180deg, #0b1222 0%, #0f172a 60%, #0b1222 100%);
             display: flex; 
             align-items: center; 
             text-align: center; 
             color: white;
             padding-top: 80px;
+            position: relative;
         }
-        .hero-content { max-width: 800px; margin: 0 auto; opacity: 0; transform: translateY(30px); animation: fadeInUp 1s forwards 0.5s; }
-        .hero h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 1.2rem; margin-bottom: 40px; color: rgba(255,255,255,0.9); }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, #0f172a 120%);
+        }
         
+        .hero-content { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            position: relative; 
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s;
+        }
+        
+        .hero-subtitle {
+            color: var(--accent);
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .hero h1 { 
+            font-size: 4.5rem; 
+            margin-bottom: 30px; 
+            line-height: 1.1; 
+            font-weight: 400;
+            color: #cbd5e1; /* cinza claro */
+            text-shadow: 0 4px 16px rgba(0,0,0,0.35);
+        }
+        .hero h1 span { 
+            font-style: italic; 
+            font-family: 'Cormorant Garamond', serif; 
+            color: #94a3b8; /* cinza médio */
+        }
+        
+        .hero p { 
+            font-size: 1.2rem; 
+            margin-bottom: 80px; /* mais espaço abaixo do banner */
+            color: #cbd5e1; 
+            max-width: 700px; 
+            margin-left: auto; 
+            margin-right: auto;
+            font-weight: 400;
+            text-shadow: 0 3px 14px rgba(0,0,0,0.35);
+        }
+
         @keyframes fadeInUp {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Stats */
-        .stats { background: var(--accent); color: white; padding: 40px 0; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: center; }
-        .stat-item h3 { font-size: 2.5rem; margin-bottom: 5px; }
-        .stat-item p { text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
+        .stats-bar {
+            background: #e5e7eb;
+            transform: translateY(-35%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            padding: 50px 0;
+            position: relative;
+            z-index: 10;
+            margin-bottom: -35px;
+        }
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 40px; 
+            text-align: center; 
+        }
+        .stat-item { border-right: 1px solid #e2e8f0; }
+        .stat-item:last-child { border-right: none; }
+        .stat-item h3 { font-size: 3rem; margin-bottom: 10px; color: var(--primary); font-family: 'Cormorant Garamond', serif; }
+        .stat-item p { text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: var(--text-light); font-weight: 600; }
 
-        /* Areas */
-        .areas { padding: 100px 0; background: var(--white); }
-        .section-header { text-align: center; margin-bottom: 60px; }
-        .section-header h2 { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
-        .section-header .divider { width: 60px; height: 3px; background: var(--accent); margin: 0 auto; }
+        .section-padding { padding: 120px 0; }
         
-        .areas-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .section-header { text-align: center; margin-bottom: 80px; }
+        .section-subtitle { color: var(--accent); font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 15px; }
+        .section-header h2 { font-size: 3rem; color: var(--primary); position: relative; display: inline-block; }
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 20px auto 0;
+        }
+        
+        .areas-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 40px; 
+        }
+        
         .area-card { 
-            background: var(--light-bg); 
-            padding: 40px; 
-            transition: 0.4s; 
-            border-bottom: 3px solid transparent;
+            background: #f1f5f9; 
+            padding: 50px 40px; 
+            transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); 
+            border: 1px solid #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+        .area-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 3px; height: 0;
+            background: var(--accent);
+            transition: 0.4s;
         }
         .area-card:hover { 
             transform: translateY(-10px); 
-            background: white; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); 
-            border-bottom-color: var(--accent);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.05); 
         }
-        .area-icon { font-size: 3rem; color: var(--accent); margin-bottom: 20px; }
-        .area-card h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary); }
-        .area-card a { color: var(--accent); text-decoration: none; font-weight: 700; margin-top: 20px; display: inline-block; }
-
-        /* About Split */
-        .about { display: flex; flex-wrap: wrap; }
-        .about-img { flex: 1; min-width: 400px; background: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=80') center/cover; min-height: 500px; }
-        .about-content { flex: 1; min-width: 400px; padding: 80px; background: var(--primary); color: white; display: flex; flex-direction: column; justify-content: center; }
-        .about-content h2 { font-size: 2.5rem; margin-bottom: 20px; }
-        .about-content p { margin-bottom: 30px; color: rgba(255,255,255,0.7); }
-
-        /* Testimonials */
-        .testimonials { padding: 100px 0; background: var(--light-bg); text-align: center; }
-        .testimonial-slider { max-width: 800px; margin: 0 auto; position: relative; overflow: hidden; }
-        .testimonial-track { display: flex; transition: transform 0.5s ease; }
-        .testimonial-item { min-width: 100%; padding: 20px; }
-        .quote { font-size: 1.5rem; font-style: italic; color: var(--primary); margin-bottom: 30px; font-family: 'Playfair Display', serif; }
-        .author { font-weight: 700; color: var(--accent); }
-        .dots { display: flex; justify-content: center; gap: 10px; margin-top: 30px; }
-        .dot { width: 12px; height: 12px; background: #ddd; border-radius: 50%; cursor: pointer; }
-        .dot.active { background: var(--accent); }
-
-        /* Contact CTA */
-        .contact-cta { background: var(--primary); color: white; padding: 80px 0; text-align: center; }
+        .area-card:hover::before { height: 100%; }
         
-        /* Footer */
-        footer { background: #111; color: rgba(255,255,255,0.5); padding: 50px 0 20px; font-size: 0.9rem; }
-        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; margin-bottom: 40px; }
-        .footer h4 { color: white; margin-bottom: 20px; }
-        .footer ul { list-style: none; }
-        .footer ul li { margin-bottom: 10px; }
-        .footer a { color: inherit; text-decoration: none; transition: 0.3s; }
-        .footer a:hover { color: var(--accent); }
+        .area-icon { font-size: 2.5rem; color: var(--accent); margin-bottom: 30px; display: block; }
+        .area-card h3 { font-size: 1.5rem; margin-bottom: 20px; color: var(--primary); font-family: 'Playfair Display', serif; }
+        .area-card p { color: var(--text-light); font-size: 0.95rem; margin-bottom: 30px; }
+        .area-link { color: var(--primary); text-decoration: none; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .area-link:hover { color: var(--accent); gap: 15px; }
 
-        /* WhatsApp Float */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #25d366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            z-index: 1000;
-            transition: 0.3s;
-            text-decoration: none;
+        .about-section { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-light); }
+        .about-img { 
+            background: url('https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1000&q=80') center/cover; 
+            min-height: 600px; 
+            position: relative;
         }
-        .whatsapp-float:hover { transform: scale(1.1); }
+        .about-img::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(15, 23, 42, 0.2);
+        }
+        
+        .about-content { padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; }
+        .about-content h2 { font-size: 3rem; margin-bottom: 30px; }
+        .about-content p { margin-bottom: 30px; color: var(--text); font-size: 1.1rem; }
+        
+        .signature {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-top: 20px;
+            font-style: italic;
+        }
 
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .about-content { padding: 40px; }
-            .nav-links { display: none; } /* Simplified for mobile demo */
+        .testimonials { background: var(--primary); color: white; padding: 120px 0; text-align: center; position: relative; }
+        .testimonials::before {
+            content: '"';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 200px;
+            color: rgba(255,255,255,0.05);
+            line-height: 1;
+        }
+        
+        .testimonial-slider { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+        .quote-text { font-size: 1.8rem; font-style: italic; color: rgba(255,255,255,0.9); margin-bottom: 40px; font-family: 'Cormorant Garamond', serif; line-height: 1.6; }
+        .author-info h4 { color: var(--accent); font-size: 1.2rem; margin-bottom: 5px; letter-spacing: 1px; }
+        .author-info span { color: rgba(255,255,255,0.5); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+
+        .contact { padding: 120px 0; background: #f1f5f9; }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 80px; }
+        .contact-info h3 { font-size: 2.5rem; margin-bottom: 30px; }
+        .contact-item { display: flex; gap: 20px; margin-bottom: 30px; }
+        .contact-icon { width: 50px; height: 50px; background: var(--bg-light); display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--accent); font-size: 1.5rem; flex-shrink: 0; }
+        .contact-text h5 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; color: var(--text-light); }
+        .contact-text p { font-size: 1.1rem; color: var(--primary); font-weight: 500; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-control { width: 100%; padding: 15px; border: 1px solid #e2e8f0; background: var(--bg-light); font-family: inherit; transition: 0.3s; }
+        .form-control:focus { outline: none; border-color: var(--accent); background: white; }
+        textarea.form-control { height: 150px; resize: none; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+        footer { background: #0b1120; color: rgba(255,255,255,0.4); padding: 80px 0 30px; font-size: 0.9rem; border-top: 3px solid var(--accent); }
+        .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+        .footer-brand h2 { color: white; font-size: 2rem; margin-bottom: 20px; font-family: 'Cormorant Garamond', serif; }
+        .footer-brand p { margin-bottom: 30px; line-height: 1.8; }
+        .footer-title { color: white; font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 30px; font-family: 'Montserrat', sans-serif; }
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: inherit; text-decoration: none; transition: 0.3s; display: inline-block; }
+        .footer-links a:hover { color: var(--accent); transform: translateX(5px); }
+        
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.05); padding-top: 30px; text-align: center; font-size: 0.8rem; }
+
+        @media (max-width: 968px) {
+            .hero h1 { font-size: 3rem; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 30px; }
+            .stat-item { border: none; }
+            .about-section { grid-template-columns: 1fr; }
+            .about-img { min-height: 400px; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .footer-top { grid-template-columns: 1fr 1fr; }
+            .section-padding { padding: 80px 0; }
+            .about-content { padding: 60px 30px; }
+        }
+        
+        @media (max-width: 576px) {
+            .nav-links { display: none; }
+            .footer-top { grid-template-columns: 1fr; }
+            .hero-content { padding: 0 20px; }
+            .hero h1 { font-size: 2.6rem; }
+            .hero p { font-size: 1rem; margin-bottom: 40px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            .areas-grid { grid-template-columns: 1fr; }
+            .section-padding { padding: 60px 0; }
+            .container { padding: 0 16px; }
+            .hero { display: none; }
+            .stats-bar { transform: none; margin-bottom: 0; }
+            .section-header h2 { font-size: 2.2rem; line-height: 1.2; }
+            .about-content { padding: 40px 18px; }
+            .about-content h2 { font-size: 2rem; line-height: 1.2; }
+            .about-content p { font-size: 1rem; }
+            .form-row { grid-template-columns: 1fr; gap: 12px; }
         }
     </style>
 </head>
@@ -202,177 +353,240 @@
 
     <header>
         <div class="container nav-wrapper">
-            <div class="logo"><i class="ph ph-scales"></i> Lorem & Ipsum</div>
+            <div class="logo"><i class="ph ph-scales"></i> Gustavo Menezes</div>
             <nav class="nav-links">
-                <a href="#">Lorem</a>
-                <a href="#">Ipsum</a>
-                <a href="#">Dolor</a>
-                <a href="#">Sit</a>
-                <a href="#" class="btn nav-btn">Amet</a>
+                <a href="#home">Início</a>
+                <a href="#areas">Áreas de Atuação</a>
+                <a href="#sobre">Sobre Nós</a>
+                <a href="#contato">Contato</a>
+                <a href="#agendar" class="btn" style="padding: 10px 25px; font-size: 0.75rem;">Agendar Consulta</a>
             </nav>
         </div>
     </header>
 
-    <section class="hero">
-        <div class="container hero-content">
-            <h1>Lorem Ipsum<br>Dolor Sit Amet</h1>
-            <p>Consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-            <a href="#" class="btn">Ut Enim</a>
-            <a href="#" class="btn btn-outline" style="margin-left: 15px;">Ad Minim</a>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <span class="hero-subtitle">Tradicionalismo & Modernidade</span>
+            <h1>Justiça com<br><span>Excelência e Integridade</span></h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <a href="#contato" class="btn">Fale com um Advogado</a>
+                <a href="#areas" class="btn btn-outline">Nossas Áreas</a>
+            </div>
         </div>
     </section>
 
-    <div class="stats">
-        <div class="container stats-grid">
-            <div class="stat-item">
-                <h3>20+</h3>
-                <p>Veniam</p>
-            </div>
-            <div class="stat-item">
-                <h3>1.5k</h3>
-                <p>Nostrud</p>
-            </div>
-            <div class="stat-item">
-                <h3>15</h3>
-                <p>Ullamco</p>
-            </div>
-            <div class="stat-item">
-                <h3>98%</h3>
-                <p>Laboris</p>
+    <div class="container">
+        <div class="stats-bar">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>20+</h3>
+                    <p>Anos de Experiência</p>
+                </div>
+                <div class="stat-item">
+                    <h3>1.5k+</h3>
+                    <p>Casos Vencidos</p>
+                </div>
+                <div class="stat-item">
+                    <h3>R$ 50M+</h3>
+                    <p>Em Causas Recuperadas</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Taxa de Sucesso</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <section class="areas">
+    <section id="areas" class="section-padding">
         <div class="container">
             <div class="section-header">
-                <h2>Quis Nostrud</h2>
-                <div class="divider"></div>
+                <span class="section-subtitle">Especialidades</span>
+                <h2>Áreas de Atuação</h2>
             </div>
             <div class="areas-grid">
                 <div class="area-card">
                     <i class="ph ph-briefcase area-icon"></i>
-                    <h3>Occaecat Cupidatat</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
-                    <a href="#">Saiba mais &rarr;</a>
+                    <h3>Direito Empresarial</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et ligula.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
                 </div>
                 <div class="area-card">
                     <i class="ph ph-users area-icon"></i>
-                    <h3>Non Proident</h3>
-                    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.</p>
-                    <a href="#">Saiba mais &rarr;</a>
+                    <h3>Direito Civil</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse potenti.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
                 </div>
                 <div class="area-card">
                     <i class="ph ph-gavel area-icon"></i>
-                    <h3>Sunt in Culpa</h3>
-                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    <a href="#">Saiba mais &rarr;</a>
+                    <h3>Direito Penal</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer at massa.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                </div>
+                <div class="area-card">
+                    <i class="ph ph-house-line area-icon"></i>
+                    <h3>Direito Imobiliário</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                </div>
+                <div class="area-card">
+                    <i class="ph ph-scales area-icon"></i>
+                    <h3>Direito Tributário</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus commodo.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
+                </div>
+                <div class="area-card">
+                    <i class="ph ph-users-three area-icon"></i>
+                    <h3>Direito de Família</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam facilisis.</p>
+                    <a href="#" class="area-link">Saiba Mais <i class="ph ph-arrow-right"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="about">
+    <section id="sobre" class="about-section">
         <div class="about-img"></div>
         <div class="about-content">
-            <h2>Excepteur Sint</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-            <p>Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            <a href="#" class="btn btn-outline" style="align-self: flex-start;">Mollit Anim</a>
+            <span class="section-subtitle">Nossa História</span>
+            <h2>Compromisso com a Verdade e a Justiça</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vitae augue arcu. Donec vel nibh in felis molestie aliquam.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras at nibh ut lectus ultrices placerat vel vitae ipsum.</p>
+            <div class="signature">Gustavo Menezes</div>
+            <p style="font-size: 0.9rem; margin-top: 5px; color: var(--text-light);">Sócio Fundador</p>
         </div>
     </section>
 
     <section class="testimonials">
         <div class="container">
-            <div class="section-header">
-                <h2>Duis Aute Irure</h2>
-                <div class="divider"></div>
-            </div>
             <div class="testimonial-slider">
-                <div class="testimonial-track" id="track">
-                    <div class="testimonial-item">
-                        <p class="quote">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."</p>
-                        <p class="author">- Cliente Lorem, CEO</p>
-                    </div>
-                    <div class="testimonial-item">
-                        <p class="quote">"Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."</p>
-                        <p class="author">- Cliente Ipsum, CTO</p>
-                    </div>
-                    <div class="testimonial-item">
-                        <p class="quote">"Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur."</p>
-                        <p class="author">- Cliente Dolor, Manager</p>
-                    </div>
+                <div class="quote-text">
+                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida, nunc non hendrerit ullamcorper, nibh justo congue urna, in congue odio lorem a mauris."
                 </div>
-                <div class="dots" id="dots">
-                    <div class="dot active" onclick="slide(0)"></div>
-                    <div class="dot" onclick="slide(1)"></div>
-                    <div class="dot" onclick="slide(2)"></div>
+                <div class="author-info">
+                    <h4>Gustavo Menezes</h4>
+                    <span>CEO</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="contact-cta">
+    <section id="contato" class="contact">
         <div class="container">
-            <h2>Voluptate Velit Esse?</h2>
-            <p style="margin: 20px 0 40px; opacity: 0.8;">Cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat.</p>
-            <a href="#" class="btn" style="background: white; color: var(--primary);">Contact Lorem</a>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <span class="section-subtitle">Fale Conosco</span>
+                    <h3>Estamos Prontos para Defender seus Interesses</h3>
+                    <p style="margin-bottom: 40px; color: var(--text-light);">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vel nunc sed est dignissim facilisis.</p>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ph ph-map-pin"></i></div>
+                        <div class="contact-text">
+                            <h5>Localização</h5>
+                            <p>xxxxxxxxxxxxxxx</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ph ph-phone"></i></div>
+                        <div class="contact-text">
+                            <h5>Telefone</h5>
+                            <p>35920021630</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="ph ph-envelope-simple"></i></div>
+                        <div class="contact-text">
+                            <h5>E-mail</h5>
+                            <p>contato@techsolutions.net.br</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Seu Nome">
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Seu Telefone">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="Seu E-mail">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control">
+                                <option value="" disabled selected>Área de Interesse</option>
+                                <option>Direito Empresarial</option>
+                                <option>Direito Civil</option>
+                                <option>Direito Penal</option>
+                                <option>Outros</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Descreva brevemente seu caso"></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
     <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <h4>Lorem & Ipsum</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt.</p>
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2>Gustavo Menezes</h2>
+                    <p>Excelência jurídica com integridade e resultados. Seu parceiro estratégico em todas as esferas do direito.</p>
+                    <div style="display: flex; gap: 15px;">
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="ph ph-linkedin-logo"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="ph ph-instagram-logo"></i></a>
+                        <a href="#" style="color: white; font-size: 1.5rem;"><i class="ph ph-facebook-logo"></i></a>
+                    </div>
                 </div>
-                <div class="footer-col">
-                    <h4>Links</h4>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Links Rápidos</h4>
                     <ul>
-                        <li><a href="#">Lorem</a></li>
-                        <li><a href="#">Ipsum</a></li>
-                        <li><a href="#">Dolor</a></li>
-                        <li><a href="#">Sit</a></li>
+                        <li><a href="#home">Início</a></li>
+                        <li><a href="#sobre">Sobre o Escritório</a></li>
+                        <li><a href="#areas">Áreas de Atuação</a></li>
+                        <li><a href="#equipe">Nossa Equipe</a></li>
+                        <li><a href="#blog">Artigos e Notícias</a></li>
                     </ul>
                 </div>
-                <div class="footer-col">
-                    <h4>Contato</h4>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Áreas</h4>
                     <ul>
-                        <li>(00) 00000-0000</li>
-                        <li>contact@loremipsum.com</li>
-                        <li>Lorem Street, 1000</li>
+                        <li><a href="#">Empresarial</a></li>
+                        <li><a href="#">Tributário</a></li>
+                        <li><a href="#">Trabalhista</a></li>
+                        <li><a href="#">Civil</a></li>
+                        <li><a href="#">Penal</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4 class="footer-title">Atendimento</h4>
+                    <ul>
+                        <li>Seg - Sex: 08:00 - 19:00</li>
+                        <li>Sáb: 09:00 - 13:00</li>
+                        <li style="margin-top: 20px; color: var(--accent);">Plantão Criminal 24h</li>
                     </ul>
                 </div>
             </div>
-            <div style="text-align: center; border-top: 1px solid #333; padding-top: 20px;">
-                <p>&copy; 2024 Lorem & Ipsum. All rights reserved.</p>
+            
+            <div class="footer-bottom">
+                &copy; 2026 Gustavo Menezes. Todos os direitos reservados.
             </div>
         </div>
     </footer>
 
-    <a href="#" class="whatsapp-float">
-        <i class="ph ph-whatsapp-logo"></i>
-    </a>
-
-    <script>
-        // Simple Slider Logic
-        const track = document.getElementById('track');
-        const dots = document.querySelectorAll('.dot');
-        let currentSlide = 0;
-
-        function slide(index) {
-            currentSlide = index;
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
-            dots.forEach(d => d.classList.remove('active'));
-            dots[index].classList.add('active');
-        }
-
-        // Auto slide
-        setInterval(() => {
-            currentSlide = (currentSlide + 1) % 3;
-            slide(currentSlide);
-        }, 5000);
-    </script>
 </body>
 </html>

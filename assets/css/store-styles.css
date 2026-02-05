@@ -1,22 +1,12 @@
-/* =========================================
-   Módulo: Store Showcase
-   Contexto: Estilos isolados para a seção de Loja/Venda
-   Namespace: .store-showcase
-   ========================================= */
-
-/* Ajuste de Espaçamento da Seção */
 #store.section {
     padding: 40px 0;
 }
 
-/* Variáveis de Escopo Local */
 :root {
     --store-border: rgba(255, 255, 255, 0.05);
     --device-bezel: #18181b;
 }
 
-/* Container Principal
-   ----------------------------------------- */
 .store-showcase {
     background: transparent;
     border: none;
@@ -34,7 +24,6 @@
     min-height: auto;
 }
 
-/* Colunas de Layout */
 .col-text {
     padding: 10px 0;
     display: flex;
@@ -54,9 +43,43 @@
     border: none;
 }
 
-/* Componentes Visuais
-   ----------------------------------------- */
-/* Badge Premium */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+}
+
+.product-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: var(--primary-color);
+}
+.product-card img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    display: block;
+}
+.product-info {
+    padding: 14px 16px;
+}
+.product-info h3 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: var(--text-main);
+}
+.product-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
 .store-badge {
     display: inline-flex;
     align-items: center;
@@ -73,7 +96,6 @@
     align-self: flex-start;
 }
 
-/* Tipografia Específica */
 #store .section-title {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 2.5rem;
@@ -98,7 +120,6 @@
     max-width: 90%;
 }
 
-/* Lista de Recursos (Checklist) */
 .check-list {
     display: grid;
     grid-template-columns: 1fr;
@@ -133,7 +154,6 @@
     color: var(--primary-color);
 }
 
-/* Botões de Ação */
 .store-actions {
     display: flex;
     gap: 12px;
@@ -180,9 +200,6 @@
     box-shadow: var(--shadow);
 }
 
-/* =========================================
-   Device Frame (Mockup CSS Puro)
-   ========================================= */
 .device-frame {
     width: 340px;
     max-width: 100%;
@@ -243,7 +260,6 @@
     justify-content: center;
 }
 
-/* Instagram Embed Override */
 .screen-content iframe {
     border-radius: 0 !important;
     box-shadow: none !important;
@@ -252,7 +268,6 @@
     min-width: 100% !important;
 }
 
-/* Responsividade Mobile */
 @media (max-width: 992px) {
     .store-showcase .row {
         grid-template-columns: 1fr;
@@ -276,11 +291,6 @@
     }
 }
 
-/* =========================================
-   Configurator Modal Styles (Redesign Dark Mode Force)
-   ========================================= */
-
-/* Overlay do Modal */
 .config-modal {
     display: none; /* Inicialmente oculto */
     position: fixed;

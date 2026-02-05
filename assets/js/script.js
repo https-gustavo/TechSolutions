@@ -1,12 +1,3 @@
-/**
- * TechSolutions - Main Script
- * Handles navigation, theme, animations, and GitHub API integration.
- * Optimized for performance and readability.
- */
-
-// =========================================
-// CONSTANTS & CONFIG
-// =========================================
 const GITHUB_USER = 'https-gustavo';
 const THEME_STORAGE_KEY = 'theme';
 const SCROLL_THRESHOLD = 50;
@@ -45,23 +36,10 @@ const CUSTOM_DESCRIPTIONS = {
     'ProjetoIntegrador': 'Ferramenta estratégica para precificação e análise de margens, desenvolvida academicamente para auxiliar pequenos empreendedores na gestão financeira inteligente.'
 };
 
-// =========================================
-// UTILITIES
-// =========================================
-
-/**
- * Get Devicon class for a language
- * @param {string} language
- * @returns {string} CSS class
- */
 function getLanguageIconClass(language) {
     if (!language) return 'ph ph-code';
     return LANGUAGE_ICONS[language.toLowerCase()] || 'ph ph-code';
 }
-
-// =========================================
-// MODULES
-// =========================================
 
 const MobileMenu = {
     init() {
@@ -81,8 +59,6 @@ const MobileMenu = {
         }
 
         menuBtn.addEventListener('click', toggle);
-        
-        // Keyboard support
         menuBtn.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
@@ -90,14 +66,12 @@ const MobileMenu = {
             }
         });
 
-        // Close when clicking a link
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (navMenu.classList.contains('open')) toggle();
             });
         });
 
-        // Close when clicking outside
         document.addEventListener('click', (e) => {
             if (navMenu.classList.contains('open') && 
                 !navMenu.contains(e.target) && 
@@ -125,8 +99,6 @@ const ThemeManager = {
                 document.documentElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem(THEME_STORAGE_KEY, newTheme);
             });
-            
-            // Keyboard accessibility for toggle
             toggleBtn.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -231,7 +203,6 @@ const GithubIntegration = {
             this.renderRepos(repos, container);
         } catch (error) {
             console.error('GitHub integration failed:', error);
-            // Fallback content is already in HTML, so no action needed
         }
     },
 
@@ -240,7 +211,6 @@ const GithubIntegration = {
         if (!response.ok) throw new Error('API Error');
         const repos = await response.json();
         
-        // Filtra forks e projetos específicos que não devem aparecer
         return repos.filter(repo => 
             !repo.fork && 
             !repo.name.toUpperCase().includes('TQI') &&
@@ -251,7 +221,7 @@ const GithubIntegration = {
     renderRepos(repos, container) {
         if (repos.length === 0) return;
         
-        container.innerHTML = ''; // Clear static content
+        container.innerHTML = '';
 
         repos.forEach(repo => {
             const card = document.createElement('article');
@@ -283,7 +253,6 @@ const GithubIntegration = {
             
             container.appendChild(card);
             
-            // Re-apply effects
             if (window.TiltEffect) window.TiltEffect.applyTo(card);
             if (window.revealObserver) {
                 card.style.opacity = '0';
@@ -420,9 +389,24 @@ const VisualEffects = {
     }
 };
 
-// =========================================
-// INITIALIZATION
-// =========================================
+const AboutFlip = {
+    init() {
+        const card = document.getElementById('about-flip');
+        if (!card) return;
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'button');
+        card.setAttribute('aria-label', 'Virar cartão Sobre Nós');
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                card.classList.toggle('flipped');
+            }
+        });
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     MobileMenu.init();
@@ -430,4 +414,5 @@ document.addEventListener('DOMContentLoaded', () => {
     ScrollEffects.init();
     GithubIntegration.init();
     VisualEffects.init();
+    AboutFlip.init();
 });

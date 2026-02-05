@@ -1,15 +1,5 @@
-/**
- * TechSolutions - Módulo Configurador de PC
- * -----------------------------------------
- * Gerencia o fluxo de vendas e orçamentos, validação de formulários
- * e integração direta com WhatsApp API.
- * 
- * @module Configurator
- */
-
 document.addEventListener('DOMContentLoaded', () => {
     
-    // --- Configurações e Constantes ---
     const COMPONENT_LABELS = {
         cpu: 'Processador',
         mobo: 'Placa-mãe',
@@ -20,13 +10,11 @@ document.addEventListener('DOMContentLoaded', () => {
         case: 'Gabinete'
     };
 
-    // --- Estado da Aplicação ---
-    let currentFlow = null; // 'sale' (venda) | 'budget' (orçamento)
+    let currentFlow = null;
     let selectedComponents = {
         cpu: '', mobo: '', ram: '', gpu: '', storage: '', psu: '', case: ''
     };
 
-    // --- Referências DOM ---
     const modal = document.getElementById('configurator-modal');
     const modalTitle = document.getElementById('modal-title');
     const modalClose = document.getElementById('modal-close');
@@ -35,11 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const submitBtn = document.getElementById('submit-config');
     const userForm = document.getElementById('user-form');
     
-    // Triggers
     const btnSale = document.getElementById('btn-sale');
     const btnBudget = document.getElementById('btn-budget');
 
-    // Mapeamento de Inputs
     const inputs = {
         cpu: document.getElementById('input-cpu'),
         mobo: document.getElementById('input-mobo'),
@@ -50,37 +36,28 @@ document.addEventListener('DOMContentLoaded', () => {
         case: document.getElementById('input-case')
     };
 
-    // --- Inicialização ---
     init();
 
     function init() {
         setupEventListeners();
     }
 
-    /**
-     * Configura todos os ouvintes de eventos da aplicação
-     */
     function setupEventListeners() {
-        // Modal Triggers
         if (btnSale) btnSale.addEventListener('click', () => openConfigurator('sale'));
         if (btnBudget) btnBudget.addEventListener('click', () => openConfigurator('budget'));
         
-        // Modal Controls
         if (modalClose) modalClose.addEventListener('click', closeConfigurator);
         
-        // Fechar ao clicar no overlay
         window.addEventListener('click', (e) => {
             if (e.target === modal) closeConfigurator();
         });
 
-        // Acessibilidade: Fechar modal com a tecla ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.style.display === 'flex') {
                 closeConfigurator();
             }
         });
 
-        // Atualização dinâmica do resumo conforme o usuário digita
         Object.keys(inputs).forEach(key => {
             const input = inputs[key];
             if (input) {
@@ -91,26 +68,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Submissão
         if (userForm) {
             userForm.addEventListener('submit', handleFormSubmit);
         }
     }
 
-    /**
-     * Abre o modal e configura o contexto (Venda ou Orçamento)
-     * @param {string} flow - Tipo de fluxo: 'sale' ou 'budget'
-     */
     function openConfigurator(flow) {
         currentFlow = flow;
         modal.style.display = 'flex';
         modal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden'; // Previne scroll de fundo
+        document.body.style.overflow = 'hidden';
 
-        // Reset visual condicional
         if (priceContainer) priceContainer.style.display = 'none'; 
         
-        // Configuração de Textos Dinâmicos
         if (flow === 'sale') {
             modalTitle.textContent = 'Venda seu PC Gamer';
             submitBtn.textContent = 'Enviar para Avaliação';
@@ -122,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resetForm();
         updateSummary();
         
-        // Acessibilidade: Focar no primeiro input
         const firstInput = inputs.cpu;
         if (firstInput) setTimeout(() => firstInput.focus(), 100);
     }
@@ -134,21 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resetForm() {
-        // Reset State
         Object.keys(selectedComponents).forEach(key => selectedComponents[key] = '');
         
-        // Reset Inputs
         Object.values(inputs).forEach(input => {
             if (input) input.value = '';
         });
         
-        // Reset Contact Form
         if (userForm) userForm.reset();
     }
 
-    /**
-     * Atualiza a lista visual de resumo dos componentes selecionados
-     */
     function updateSummary() {
         if (!summaryList) return;
         
@@ -159,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (value) {
                 hasItems = true;
                 const li = document.createElement('li');
-                // Uso de escapeHtml para prevenir XSS básico na renderização
                 li.innerHTML = `<strong>${COMPONENT_LABELS[key]}:</strong> ${escapeHtml(value)}`;
                 summaryList.appendChild(li);
             }
@@ -170,12 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    /**
-     * Gera payload formatado para WhatsApp e valida campos obrigatórios
-     * @returns {Object|null} Objeto com corpo da mensagem ou null se inválido
-     */
     function generateMessageData() {
-        // Regra de Negócio: Campos mínimos para um orçamento válido
         const requiredFields = ['cpu', 'mobo', 'ram', 'psu', 'storage'];
         const missingFields = requiredFields.filter(key => !selectedComponents[key]);
         
@@ -199,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
             obs: formData.get('obs')
         };
 
-        // Formatação da Lista de Componentes
         const componentList = Object.entries(selectedComponents)
             .filter(([_, value]) => value !== '')
             .map(([key, value]) => `- ${COMPONENT_LABELS[key].toUpperCase()}: ${value}`)
@@ -251,10 +207,6 @@ ${customer.obs || 'Nenhuma'}
         closeConfigurator();
     }
 
-    /**
-     * Sanitização básica de strings para prevenção de XSS
-     * @param {string} text 
-     */
     function escapeHtml(text) {
         if (!text) return text;
         return text

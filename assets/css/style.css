@@ -26,14 +26,12 @@
     --shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
 }
 
-/* Reset e Base */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { 
     scroll-behavior: smooth; 
     scroll-padding-top: 100px; /* Garante que o header não corte o topo das seções */
 }
 
-/* Hide scrollbar */
 ::-webkit-scrollbar { display: none; }
 body { 
     font-family: 'Inter', sans-serif; 
@@ -48,7 +46,6 @@ ul { list-style: none; }
 a { text-decoration: none; color: inherit; transition: 0.2s; }
 img { max-width: 100%; display: block; }
 
-/* Layout */
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 .section { padding: 80px 0; }
 .section-header { text-align: center; margin-bottom: 50px; }
@@ -63,14 +60,12 @@ img { max-width: 100%; display: block; }
 .section-subtitle { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
 .bg-alt { background-color: var(--bg-alt); }
 
-/* Botões */
 .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; font-size: 1rem; }
 .btn-primary { background-color: var(--primary-color); color: white; }
 .btn-primary:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
 .btn-outline { border: 2px solid var(--primary-color); color: var(--primary-color); background: transparent; }
 .btn-outline:hover { background-color: var(--primary-color); color: white; transform: translateY(-2px); }
 
-/* Cabeçalho */
 #header {
     width: 100%;
     position: fixed;
@@ -102,7 +97,6 @@ img { max-width: 100%; display: block; }
     display: none; /* Garante que esteja oculto */
 }
 
-/* Menu de Navegação - Padrão Desktop */
 .nav-menu {
     position: static;
     width: auto;
@@ -120,7 +114,6 @@ img { max-width: 100%; display: block; }
     right: 0;
 }
 
-/* Menu de Navegação - Estilo Minimalista Tech */
 .nav-list {
     display: flex;
     flex-direction: row;
@@ -137,7 +130,6 @@ img { max-width: 100%; display: block; }
     box-shadow: none;
 }
 
-/* Itens de Navegação Tech */
 .nav-link {
     color: var(--text-main);
     font-family: 'Roboto Mono', monospace; /* Fonte Tech */
@@ -153,7 +145,6 @@ img { max-width: 100%; display: block; }
     display: inline-block;
 }
 
-/* Efeito Hover: Brilho & Espaçamento */
 .nav-link:hover {
     color: var(--primary-color);
     text-shadow: 0 0 8px rgba(139, 92, 246, 0.6); /* Brilho Neon */
@@ -161,7 +152,6 @@ img { max-width: 100%; display: block; }
     background: transparent !important;
 }
 
-/* Estado Ativo */
 .nav-link.active {
     color: var(--primary-color);
     background: transparent !important;
@@ -170,7 +160,6 @@ img { max-width: 100%; display: block; }
     text-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
 }
 
-/* Tags: < e /> */
 .nav-link::before {
     content: '<';
     position: absolute;
@@ -193,7 +182,6 @@ img { max-width: 100%; display: block; }
     font-weight: 700;
 }
 
-/* Mostrar Tags no Hover & Ativo */
 .nav-link:hover::before,
 .nav-link.active::before {
     opacity: 1;
@@ -213,7 +201,6 @@ img { max-width: 100%; display: block; }
     z-index: 1001;
 }
 
-/* Botão Alternar Tema - Criativo */
 .theme-toggle-btn {
     width: 60px;
     height: 30px;
@@ -262,7 +249,6 @@ img { max-width: 100%; display: block; }
     color: var(--text-main);
 }
 
-/* Hero */
 .hero { padding-top: 200px; min-height: 100vh; display: flex; align-items: center; padding-bottom: 80px; }
 .hero-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .hero-content { max-width: 600px; }
@@ -534,6 +520,27 @@ img { max-width: 100%; display: block; }
 .skills-wrapper { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .skill-tag { background: var(--bg-card); border: 1px solid var(--border-color); padding: 8px 16px; border-radius: 30px; font-size: 0.9rem; font-weight: 500; transition: border-color 0.2s; }
 .skill-tag:hover { border-color: var(--primary-color); color: var(--primary-color); }
+.about-flip-card { perspective: 1000px; }
+.about-flip-inner { position: relative; transform-style: preserve-3d; transition: transform 0.6s ease; }
+.about-flip-card.flipped .about-flip-inner { transform: rotateY(180deg); }
+.about-face { backface-visibility: hidden; }
+.about-face.back { transform: rotateY(180deg); position: absolute; top: 0; left: 0; width: 100%; }
+.photo-placeholder { width: 100%; height: 350px; border-radius: 20px; border: 1px solid var(--border-color); background: var(--bg-card); display: flex; align-items: center; justify-content: center; color: var(--text-muted); font-size: 3rem; box-shadow: var(--shadow); }
+.person-name { font-size: 1.3rem; font-weight: 800; margin: 8px 0 16px; background: linear-gradient(120deg, var(--primary-color), var(--accent-color)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: 0.3px; }
+.flip-hint { display: inline-flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.9rem; margin-top: 18px; }
+.about-flip-card { cursor: pointer; }
+.about-flip-card:hover .flip-hint { color: var(--primary-color); }
+ #about.section { padding: 60px 0; }
+ #about .row { gap: 40px; }
+#about .about-visual { width: 300px; height: 300px; border-radius: 20px; box-shadow: var(--shadow); overflow: hidden; }
+#about .photo-placeholder { width: 300px; height: 300px; }
+#about .about-visual img { width: 100%; height: 100%; object-fit: cover; }
+#about .experience-badge { bottom: 10px; right: 10px; padding: 10px 16px; z-index: 2; }
+ #about .experience-badge .years { font-size: 1.5rem; }
+ #about .experience-badge .text { font-size: 0.7rem; }
+ #about .col-text { max-width: 520px; }
+ #about .about-text { margin-bottom: 16px; font-size: 1rem; line-height: 1.55; }
+ #about .skills-wrapper { margin-top: 20px; gap: 8px; }
 
 /* Contato */
 .contact-container { max-width: 1000px; }

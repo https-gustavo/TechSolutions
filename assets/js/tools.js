@@ -1,16 +1,8 @@
-/**
- * TechSolutions - Tools Script
- * Interactive tools for the Tools section
- */
-
 const ToolsManager = {
     init() {
-        // this.initPasswordGenerator(); // Removido conforme solicitação
-        // this.initIpChecker(); // Removido da interface visual
         this.initTerminal();
         this.initFloatingTerminal();
         this.initPortfolioPreview();
-        console.log('ToolsManager initialized');
     },
 
     initFloatingTerminal() {
@@ -24,7 +16,6 @@ const ToolsManager = {
         const toggleTerminal = () => {
             container.classList.toggle('hidden');
             if (!container.classList.contains('hidden')) {
-                // Focar no input após a transição
                 setTimeout(() => input.focus(), 100);
             }
         };
@@ -37,7 +28,6 @@ const ToolsManager = {
             });
         }
 
-        // Atalho de teclado (Ctrl + `) para abrir/fechar
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey && e.key === '`') {
                 toggleTerminal();
@@ -67,7 +57,7 @@ const ToolsManager = {
         const closeModal = () => {
             modal.classList.remove('active');
             setTimeout(() => {
-                iframe.src = ''; // Limpar src para parar vídeos/sons se houver
+                iframe.src = '';
             }, 300);
         };
 
@@ -75,14 +65,12 @@ const ToolsManager = {
             closeBtn.addEventListener('click', closeModal);
         }
 
-        // Fechar ao clicar fora do modal
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
 
-        // Fechar com ESC
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
                 closeModal();
@@ -110,10 +98,8 @@ const ToolsManager = {
             if (e.key === 'Enter') {
                 const cmd = input.value.trim().toLowerCase();
                 
-                // Add command to history
                 this.printLine(`<span class="prompt">guest@techsolutions:~$</span> ${cmd}`, output);
                 
-                // Process command
                 if (cmd === 'limpar' || cmd === 'cls') {
                     output.innerHTML = '';
                 } else if (cmd === 'matrix') {
@@ -126,12 +112,10 @@ const ToolsManager = {
                 }
 
                 input.value = '';
-                // Scroll to bottom
                 body.scrollTop = body.scrollHeight;
             }
         });
 
-        // Focus input when clicking on terminal
         body.addEventListener('click', () => input.focus());
     },
 
@@ -175,7 +159,6 @@ const ToolsManager = {
 
         const interval = setInterval(draw, 33);
 
-        // Stop after 5 seconds
         setTimeout(() => {
             clearInterval(interval);
             canvas.classList.remove('active');
@@ -192,7 +175,6 @@ const ToolsManager = {
 
         if (!generateBtn || !passwordOutput) return;
 
-        // Update length display
         lengthInput?.addEventListener('input', (e) => {
             if (lengthValue) lengthValue.textContent = e.target.value;
         });
@@ -206,7 +188,6 @@ const ToolsManager = {
             const password = this.generatePassword(length, includeUppercase, includeNumbers, includeSymbols);
             passwordOutput.value = password;
             
-            // Visual feedback
             passwordOutput.parentElement.classList.add('generated');
             setTimeout(() => passwordOutput.parentElement.classList.remove('generated'), 500);
         });
@@ -282,7 +263,6 @@ const ToolsManager = {
     }
 };
 
-// Auto-init if DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => ToolsManager.init());
 } else {

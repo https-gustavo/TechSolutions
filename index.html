@@ -6,14 +6,12 @@
     <meta name="description" content="Serviços de Técnico de Informática, Montagem de Computadores e Desenvolvimento Web. Soluções profissionais para você e sua empresa.">
     <meta name="theme-color" content="#0a192f">
     
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://techsolutions.net.br/">
     <meta property="og:title" content="TechSolutions - Soluções em Informática">
     <meta property="og:description" content="Serviços de Técnico de Informática, Montagem de Computadores e Desenvolvimento Web. Soluções profissionais para você e sua empresa.">
     <meta property="og:image" content="https://techsolutions.net.br/imagem/LOGO.png">
 
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://techsolutions.net.br/">
     <meta property="twitter:title" content="TechSolutions - Soluções em Informática">
@@ -23,27 +21,22 @@
     <link rel="canonical" href="https://techsolutions.net.br/">
     <title>TechSolutions - Soluções em Informática</title>
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="imagem/LOGO.png">
     <link rel="shortcut icon" href="imagem/LOGO.png" type="image/png">
     
-    <!-- Fontes do Google -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
-    <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/store-styles.css">
     <link rel="stylesheet" href="assets/css/gallery-styles.css">
     <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicon/devicon@latest/devicon.min.css" />
     
-    <!-- Ícones (Phosphor Icons) -->
     <script src="https://unpkg.com/@phosphor-icons/web" defer></script>
 </head>
 <body>
 
-    <!-- Cabeçalho -->
     <header id="header">
         <nav class="nav container">
             <!-- Logo Mobile -->
@@ -81,7 +74,6 @@
         </nav>
     </header>
 
-    <!-- Seção Hero (Início) -->
     <section id="home" class="hero">
         <div class="container hero-container">
             <div class="hero-content">
@@ -102,7 +94,6 @@
                 </div>
             </div>
             <div class="hero-image">
-                <!-- Placeholder para Imagem Hero - Ilustração CSS ou imagem real -->
                 <div class="tech-illustration">
                     <img src="imagem/LOGO.png" alt="TechSolutions Logo" class="hero-box-logo">
                 </div>
@@ -117,7 +108,6 @@
         </div>
     </section>
 
-    <!-- Seção de Serviços -->
     <section id="services" class="section">
         <div class="container">
             <div class="section-header">
@@ -177,7 +167,7 @@
         </div>
     </section>
 
-    <!-- Seção de Loja & Montagem -->
+    
     <section id="store" class="section bg-alt">
         <div class="container">
             <div class="store-showcase">
@@ -241,7 +231,6 @@
         </div>
     </section>
 
-    <!-- Seção de Portfólio & Modelos -->
     <section id="portfolio" class="section">
         <div class="container">
             <div class="section-header">
@@ -249,14 +238,11 @@
                 <p class="section-subtitle">Explore nossa coleção de modelos profissionais, aplicativos e sistemas desenvolvidos com alta tecnologia.</p>
             </div>
 
-            <!-- Grid da Galeria -->
             <div id="gallery-grid" class="portfolio-grid">
-                <!-- Conteúdo carregado via JavaScript (gallery.js) -->
             </div>
         </div>
     </section>
 
-    <!-- Modal de Visualização (Atualizado) -->
     <div id="template-modal" class="modal-overlay">
         <div class="modal-content">
             <div class="modal-header">
@@ -268,50 +254,93 @@
                 <button id="close-modal" class="close-btn"><i class="ph ph-x"></i></button>
             </div>
             <div class="modal-frame-container desktop">
-                <iframe id="template-frame" src="" frameborder="0"></iframe>
+                <div class="device-mockup">
+                    <div class="device-btn-power"></div>
+                    <div class="device-btn-volume-up"></div>
+                    <div class="device-btn-volume-down"></div>
+                    <iframe id="template-frame" src="" frameborder="0"></iframe>
+                </div>
             </div>
         </div>
     </div>
 
 
-    <!-- Seção Sobre -->
     <section id="about" class="section bg-alt">
         <div class="container">
-            <div class="row align-center reverse-mobile">
-                <div class="col-image">
-                    <div class="about-visual">
-                        <img src="https://github.com/https-gustavo.png" alt="Gustavo Menezes" style="width: 100%; height: auto; display: block; border-radius: 12px;">
-                        <div class="experience-badge">
-                            <span class="years">5+</span>
-                            <span class="text">Anos de<br>Experiência</span>
+            <div class="about-flip-card" id="about-flip">
+                <div class="about-flip-inner">
+                    <div class="about-face front">
+                        <div class="row align-center reverse-mobile">
+                            <div class="col-image">
+                                <div class="about-visual">
+                                    <img src="imagem/eu.png" alt="Gustavo Menezes" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+                                    <div class="experience-badge">
+                                        <span class="years">5+</span>
+                                        <span class="text">Anos de<br>Experiência</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-text">
+                                <h2 class="section-title">Sobre Nós</h2>
+                                <h3 class="person-name">Gustavo Menezes</h3>
+                                <p class="about-text">
+                                    Olá! Sou Gustavo Menezes, um técnico de informática apaixonado por tecnologia que está expandindo horizontes para o desenvolvimento de software.
+                                </p>
+                                <p class="about-text">
+                                    Com anos de experiência resolvendo problemas de hardware e sistemas operacionais, desenvolvi um raciocínio lógico apurado e uma capacidade de troubleshooting que agora aplico na escrita de códigos limpos e eficientes.
+                                </p>
+                                <p class="about-text">
+                                    Meu objetivo é unir o conhecimento profundo de como as máquinas funcionam (hardware) com a criatividade e lógica de como elas operam (software).
+                                </p>
+                                <div class="skills-wrapper">
+                                    <div class="skill-tag">Hardware Repair</div>
+                                    <div class="skill-tag">Network</div>
+                                    <div class="skill-tag">HTML5/CSS3</div>
+                                    <div class="skill-tag">JavaScript</div>
+                                    <div class="skill-tag">React</div>
+                                    <div class="skill-tag">Git</div>
+                                </div>
+                                <div class="flip-hint"><i class="ph ph-arrows-clockwise"></i> Clique para virar</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-text">
-                    <h2 class="section-title">Sobre Mim</h2>
-                    <p class="about-text">
-                        Olá! Sou Gustavo Menezes, um técnico de informática apaixonado por tecnologia que está expandindo horizontes para o desenvolvimento de software.
-                    </p>
-                    <p class="about-text">
-                        Com anos de experiência resolvendo problemas de hardware e sistemas operacionais, desenvolvi um raciocínio lógico apurado e uma capacidade de troubleshooting que agora aplico na escrita de códigos limpos e eficientes.
-                    </p>
-                    <p class="about-text">
-                        Meu objetivo é unir o conhecimento profundo de como as máquinas funcionam (hardware) com a criatividade e lógica de como elas operam (software).
-                    </p>
-                    <div class="skills-wrapper">
-                        <div class="skill-tag">Hardware Repair</div>
-                        <div class="skill-tag">Network</div>
-                        <div class="skill-tag">HTML5/CSS3</div>
-                        <div class="skill-tag">JavaScript</div>
-                        <div class="skill-tag">React</div>
-                        <div class="skill-tag">Git</div>
+                    <div class="about-face back">
+                        <div class="row align-center reverse-mobile">
+                            <div class="col-image">
+                                <div class="about-visual">
+                                    <img src="imagem/nilton.png" alt="Nilton Silva" style="width: 100%; height: auto; display: block; border-radius: 12px;">
+                                    <div class="experience-badge">
+                                        <span class="years">5+</span>
+                                        <span class="text">Anos de<br>Experiência</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-text">
+                                <h2 class="section-title">Sobre Nós</h2>
+                                <h3 class="person-name">Nilton Silva</h3>
+                                <p class="about-text">
+                                    Olá! Sou Nilton Silva, técnico de TI com atuação na Prefeitura Municipal de Andradas, apaixonado por tecnologia e pela manutenção de ambientes de TI estáveis e funcionais.
+                                </p>
+                                <p class="about-text">
+                                    Com experiência prática em redes LAN/WAN, infraestrutura de tecnologia da informação e suporte técnico, desenvolvi uma visão sólida sobre o funcionamento de sistemas, redes e equipamentos, sempre focado em prevenção de falhas e resolução eficiente de problemas.
+                                </p>
+                                <p class="about-text">
+                                    Meu objetivo é garantir que a tecnologia funcione de forma segura, organizada e contínua, apoiando usuários e setores por meio de soluções técnicas confiáveis e bem estruturadas.
+                                </p>
+                                <div class="skills-wrapper">
+                                    <div class="skill-tag">Atendimento</div>
+                                    <div class="skill-tag">Suporte</div>
+                                    <div class="skill-tag">Documentação</div>
+                                </div>
+                                <div class="flip-hint"><i class="ph ph-arrows-clockwise"></i> Clique para virar</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Seção de Contato -->
     <section id="contact" class="section">
         <div class="container contact-container">
             <div class="section-header">
@@ -320,7 +349,7 @@
             </div>
 
             <div class="contact-grid">
-                <a href="https://wa.me/5535920021630" target="_blank" rel="noopener noreferrer" class="contact-card whatsapp">
+                <a href="https://wa.me/35920021630" target="_blank" rel="noopener noreferrer" class="contact-card whatsapp">
                     <i class="ph ph-whatsapp-logo"></i>
                     <h3>WhatsApp</h3>
                     <p>Resposta rápida para orçamentos</p>
@@ -337,12 +366,10 @@
         </div>
     </section>
 
-    <!-- Botão Flutuante Terminal -->
     <div class="floating-terminal-btn" id="terminal-toggle" role="button" aria-label="Abrir Terminal" title="Abrir Terminal Interativo">
         <i class="ph ph-terminal-window"></i>
     </div>
 
-    <!-- Container do Terminal Flutuante (Inicialmente Oculto) -->
     <div class="floating-terminal-container hidden" id="floating-terminal">
         <div class="terminal-window floating">
             <div class="terminal-bar">
@@ -367,20 +394,7 @@
         </div>
     </div>
 
-    <!-- Modal de Visualização de Templates -->
-    <div class="modal-overlay" id="template-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modal-title">Visualização de Modelo</h3>
-                <button class="btn-close-modal" id="close-modal"><i class="ph ph-x"></i></button>
-            </div>
-            <div class="modal-body">
-                <iframe id="template-frame" src="" frameborder="0"></iframe>
-            </div>
-        </div>
-    </div>
 
-    <!-- Rodapé -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -391,7 +405,7 @@
                         <a href="https://github.com/https-gustavo" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="ph ph-github-logo"></i></a>
                         <a href="https://www.linkedin.com/in/gustavo-augusto-pastre-de-menezes-40baa1170/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="ph ph-linkedin-logo"></i></a>
                         <a href="https://www.instagram.com/http.techsolutions/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="ph ph-instagram-logo"></i></a>
-                        <a href="https://wa.me/5535920021630" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                        <a href="https://wa.me/35920021630" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
                     </div>
                 </div>
 
@@ -409,15 +423,11 @@
                     <h4>Contato</h4>
                     <p>
                         <i class="ph ph-whatsapp-logo"></i> 
-                        <a href="https://wa.me/5535920021630" target="_blank" style="color: inherit; text-decoration: none;">(35) 92002-1630</a>
+                        <a href="https://wa.me/35920021630" target="_blank" style="color: inherit; text-decoration: none;">35920021630</a>
                     </p>
                     <p>
                         <i class="ph ph-envelope-simple"></i> 
                         <a href="mailto:contato@techsolutions.net.br" style="color: inherit; text-decoration: none;">contato@techsolutions.net.br</a>
-                    </p>
-                    <p>
-                        <i class="ph ph-map-pin"></i> 
-                        Brasil
                     </p>
                 </div>
             </div>
