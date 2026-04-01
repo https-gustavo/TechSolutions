@@ -1,6 +1,19 @@
 
 const galleryData = [
     {
+        id: 'controle-estoque',
+        title: 'Tech Estoque (Mini ERP)',
+        category: 'app',
+        description: 'Mini ERP desenvolvido para a faculdade com módulos de estoque, vendas e financeiro em tempo real. Inclui modo visitante para demo sem afetar dados reais.',
+        featured: true,
+        image: 'ph-package',
+        imageUrl: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+        tags: ['Destaque', 'ERP', 'Estoque', 'Vendas', 'Financeiro'],
+        liveUrl: 'https://https-gustavo.github.io/controle-estoque',
+        previewUrl: null,
+        repoUrl: null
+    },
+    {
         id: 'landing-lawyer',
         title: 'Landing Page Advocacia',
         category: 'landing',
@@ -37,22 +50,28 @@ const galleryData = [
 
 class GalleryManager {
     constructor() {
-        this.grid = document.getElementById('gallery-grid');
+        this.featuredGrid = document.getElementById('featured-grid');
+        this.secondaryGrid = document.getElementById('secondary-grid');
         this.init();
     }
 
     init() {
-        if (!this.grid) return;
+        if (!this.featuredGrid || !this.secondaryGrid) return;
         this.renderGallery();
         this.setupModal();
     }
 
     renderGallery() {
-        this.grid.innerHTML = '';
+        this.featuredGrid.innerHTML = '';
+        this.secondaryGrid.innerHTML = '';
         
         galleryData.forEach(item => {
             const card = this.createCard(item);
-            this.grid.appendChild(card);
+            if (item.featured) {
+                this.featuredGrid.appendChild(card);
+            } else {
+                this.secondaryGrid.appendChild(card);
+            }
         });
 
         this.attachCardListeners();
@@ -60,40 +79,105 @@ class GalleryManager {
 
     createCard(item) {
         const article = document.createElement('article');
-        article.className = 'project-card fade-in';
+        const isFeatured = item.featured === true;
+        article.className = `project-card fade-in${isFeatured ? ' featured' : ''}`;
         
         // Tags generation
         const tagsHtml = item.tags.map(tag => `<span>${tag}</span>`).join('');
         
         // Button generation (Preview or Github)
         let actionBtn = '';
-        if (item.previewUrl) {
-            actionBtn = `<button class="btn-preview" data-src="${item.previewUrl}" data-category="${item.category}" aria-label="Visualizar ${item.title}"><i class="ph ph-eye"></i> Ver Demo</button>`;
+        const actionClassName = isFeatured ? 'btn-cta primary' : 'btn-cta secondary';
+        if (item.liveUrl) {
+            actionBtn = `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" class="${actionClassName}" aria-label="Abrir ${item.title}"><i class="ph ph-arrow-square-out"></i> ${isFeatured ? 'Acessar Mini ERP' : 'Abrir'}</a>`;
+        } else if (item.previewUrl) {
+            actionBtn = `<button class="${actionClassName}" data-src="${item.previewUrl}" data-category="${item.category}" aria-label="Visualizar ${item.title}"><i class="ph ph-eye"></i> Ver Demo</button>`;
         } else if (item.repoUrl) {
-            actionBtn = `<a href="${item.repoUrl}" target="_blank" class="btn-github" aria-label="Ver código"><i class="ph ph-github-logo"></i> Code</a>`;
+            actionBtn = `<a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" class="${actionClassName}" aria-label="Ver código"><i class="ph ph-github-logo"></i> Code</a>`;
         } else {
             actionBtn = `<button class="btn-disabled" disabled>Em Breve</button>`;
         }
 
-        article.innerHTML = `
-            <div class="project-header">
-                <i class="ph ${item.image} folder-icon"></i>
-                <div class="project-links">
-                    ${item.repoUrl ? `<a href="${item.repoUrl}" target="_blank" title="Código"><i class="ph ph-github-logo"></i></a>` : ''}
+        const visualHtml = isFeatured ? `
+            <div class="project-visual" aria-hidden="true">
+                <div class="visual-top">
+                    <span class="visual-dot red"></span>
+                    <span class="visual-dot yellow"></span>
+                    <span class="visual-dot green"></span>
+                </div>
+                <div class="visual-body">
+                    <div class="visual-kpis">
+                        <div class="kpi">
+                            <div class="kpi-label">Receita</div>
+                            <div class="kpi-value">R$ 12.480</div>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-label">Lucro</div>
+                            <div class="kpi-value">R$ 4.210</div>
+                        </div>
+                        <div class="kpi">
+                            <div class="kpi-label">Estoque</div>
+                            <div class="kpi-value">318 itens</div>
+                        </div>
+                    </div>
+                    <div class="visual-chart">
+                        <span class="bar b1"></span>
+                        <span class="bar b2"></span>
+                        <span class="bar b3"></span>
+                        <span class="bar b4"></span>
+                        <span class="bar b5"></span>
+                        <span class="bar b6"></span>
+                        <span class="bar b7"></span>
+                        <span class="bar b8"></span>
+                        <span class="bar b9"></span>
+                        <span class="bar b10"></span>
+                    </div>
                 </div>
             </div>
-            <h3>${item.title}</h3>
-            <p>${item.description}</p>
-            <div class="project-tech-list">
-                ${tagsHtml}
-            </div>
-            <div class="project-footer">
-                ${actionBtn}
-                <div class="project-copyright">
-                    © Direitos Reservados a Tech Solutions
+        ` : '';
+
+        if (isFeatured) {
+            article.innerHTML = `
+                <div class="project-header">
+                    <i class="ph ${item.image} folder-icon"></i>
+                    <div class="project-links">
+                        ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" title="Abrir"><i class="ph ph-arrow-square-out link-icon"></i></a>` : ''}
+                        ${item.repoUrl ? `<a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" title="Código"><i class="ph ph-github-logo link-icon"></i></a>` : ''}
+                    </div>
                 </div>
-            </div>
-        `;
+                <h3 class="project-title">${item.title}</h3>
+                <p class="project-description">${item.description}</p>
+                ${visualHtml}
+                <div class="project-actions">
+                    ${actionBtn}
+                </div>
+                <div class="project-tech-list">
+                    ${tagsHtml}
+                </div>
+                <div class="project-footer">
+                    <div class="project-copyright">© Direitos Reservados a Tech Solutions</div>
+                </div>
+            `;
+        } else {
+            article.innerHTML = `
+                <div class="project-header">
+                    <i class="ph ${item.image} folder-icon"></i>
+                    <div class="project-links">
+                        ${item.liveUrl ? `<a href="${item.liveUrl}" target="_blank" rel="noopener noreferrer" title="Abrir"><i class="ph ph-arrow-square-out link-icon"></i></a>` : ''}
+                        ${item.repoUrl ? `<a href="${item.repoUrl}" target="_blank" rel="noopener noreferrer" title="Código"><i class="ph ph-github-logo link-icon"></i></a>` : ''}
+                    </div>
+                </div>
+                <h3 class="project-title">${item.title}</h3>
+                <p class="project-description">${item.description}</p>
+                <div class="project-tech-list">
+                    ${tagsHtml}
+                </div>
+                <div class="project-footer">
+                    ${actionBtn}
+                    <div class="project-copyright">© Direitos Reservados a Tech Solutions</div>
+                </div>
+            `;
+        }
         
         return article;
     }
@@ -136,7 +220,7 @@ class GalleryManager {
     }
 
     attachCardListeners() {
-        const previewBtns = document.querySelectorAll('.btn-preview');
+        const previewBtns = document.querySelectorAll('.btn-cta[data-src]');
         const modal = document.getElementById('template-modal');
         const iframe = document.getElementById('template-frame');
         const frameContainer = modal ? modal.querySelector('.modal-frame-container') : null;
