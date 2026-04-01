@@ -389,30 +389,10 @@ const VisualEffects = {
     }
 };
 
-const AboutFlip = {
-    init() {
-        const card = document.getElementById('about-flip');
-        if (!card) return;
-        card.setAttribute('tabindex', '0');
-        card.setAttribute('role', 'button');
-        card.setAttribute('aria-label', 'Virar cartão Sobre Nós');
-        card.addEventListener('click', () => {
-            card.classList.toggle('flipped');
-        });
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                card.classList.toggle('flipped');
-            }
-        });
-    }
-};
-
 document.addEventListener('DOMContentLoaded', () => {
     MobileMenu.init();
     ThemeManager.init();
     ScrollEffects.init();
     GithubIntegration.init();
     VisualEffects.init();
-    AboutFlip.init();
 });
